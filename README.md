@@ -4,7 +4,7 @@
 
 **What will the application do?** <br>
 This application will allow users to keep track 
-of their daily calorie consumption. In addition to the main functionality
+of their daily calorie consumption by generating a daily food log. In addition to the main functionality
 of CalCount, the application will have the following features: 
 - In addition to calories, macronutrients and exercise can also be tracked. 
 - Individualized calorie recommendations based on age, sex, and 
@@ -27,4 +27,14 @@ consumption or exercise levels.
 This project is of interest to me as more and more people are starting to 
 keep track of their daily calorie consumption and usage. Calorie-counting apps
 have become an important part of the lives of individuals who are trying to either 
-change their weight or become a healthier person in general. 
+change their weight or become a healthier person in general.
+
+## User Stories
+
+- As a user, I want to be able to add an entry (food name, assoc
+calories, macros) to my food log.
+- As a user, I want to be able to view how many calories I have consumed today so far.
+- As a user, I want to be able to view how many calories I have left 
+to eat today. 
+- As a user, I want to be able to view a report/breakdown of my food consumption
+for the current day (food name, assoc calories, macros).
