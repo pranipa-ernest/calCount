@@ -11,7 +11,7 @@ Represents an individual entry in the food log. Each entry has fields
 for the date recorded, the type of meal, the name of the food, the number
 of calories, and the number of macronutrients (optional).
  */
-public class Entry implements Comparable<Entry> {
+public class Entry {
 
     private Meals meal;
 
@@ -118,9 +118,4 @@ public class Entry implements Comparable<Entry> {
         this.date = date;
     }
 
-    //TODO: MAKE SPECIFICATIONS AND A TEST FOR THIS
-    @Override
-    public int compareTo(Entry entry) {
-        return this.meal.compareTo(entry.meal);
-    }
 }

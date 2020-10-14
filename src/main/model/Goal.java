@@ -10,7 +10,7 @@ weight, or gain weight)
  */
 public class Goal {
 
-    private String goalWeight;   // One of: "Lose", "Maintain", or "Gain"
+    private User user;   // One of: "Lose", "Maintain", or "Gain"
 
     private int targetCalories; //target calorie value for user
     private int targetProtein;  //target protein value for user (grams)
@@ -18,11 +18,11 @@ public class Goal {
     private int targetCarbs;    //target carbohydrate value for (grams)
 
     /* Constructs a Goal
-     * REQUIRES: goalWeight to be one of "Lose", "Maintain", or "Gain"
-     * EFFECTS: sets up the main long-term Goal of the user
+     * REQUIRES: user to have valid fields (i.e. weight in kg);
+     * EFFECTS: initializes Goal specific to that User
      */
-    public Goal(String goalWeight) {
-        this.goalWeight = goalWeight;
+    public Goal(User user) {
+        this.user = user;
     }
 
     /*
@@ -34,8 +34,8 @@ public class Goal {
      * EFFECTS: sets the target calorie, protein, fat,
      *          and carb values according to user stats
      */
-    public void setRecommendedGoal(User user) {
-        int tdee = setTdee(user);
+    public void setRecommendedGoal() {
+        int tdee = setTdee();
         this.targetCalories = findTargetCalWithGoal(tdee);
         this.targetProtein = setTargetProtein(targetCalories);
         this.targetFat = setTargetFat(targetCalories);
@@ -46,15 +46,15 @@ public class Goal {
      * REQUIRES: user to have valid fields (i.e. weight in kg)
      * EFFECTS: returns total daily energy expenditure of user
      */
-    public int setTdee(User user) {
+    public int setTdee() {
         int tdee;
 
         if (user.getSex() == "M") {
-            tdee = (int)(10 * user.getWeight() + 6.25 * user.getHeight()
-                    - 5 * user.getAge() + 5);
+            tdee = (int)(13.7 * user.getWeight() + 5 * user.getHeight()
+                    - 6.8 * user.getAge() + 66);
         } else {
-            tdee = (int)(10 * user.getWeight() + 6.25 * user.getHeight()
-                    - 5 * user.getAge() - 161);
+            tdee = (int)(9.6 * user.getWeight() + 1.8 * user.getHeight()
+                    - 4.7 * user.getAge() + 655);
         }
         tdee *= user.getActivityLevel();
         return tdee;
@@ -63,13 +63,17 @@ public class Goal {
     /*
      * EFFECTS: returns the number of calories that the user
      *          is recommended to consume per day in order to
-     *          reach their goal (lose, maintain, or gain weight)
+     *          reach their goal (lose, maintain, or gain weight).
+     *          Min number of calories = 1200.
      */
     public int findTargetCalWithGoal(int tdee) {
         int targetCal = tdee;
-        if (goalWeight == "Lose") {
+        if (user.getGoalWeight() == "Lose") {
             targetCal -= 500;
-        } else if (goalWeight == "Gain") {
+            if (targetCal < 1200) {
+                targetCal = 1200;
+            }
+        } else if (user.getGoalWeight() == "Gain") {
             targetCal += 500;
         }
         return targetCal;
@@ -136,6 +140,11 @@ public class Goal {
     }
 
     public String getGoalWeight() {
-        return goalWeight;
+        return user.getGoalWeight();
     }
+
+    public User getUser() {
+        return user;
+    }
+
 }

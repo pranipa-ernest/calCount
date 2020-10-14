@@ -4,22 +4,25 @@ import model.*;
 
 import java.util.Scanner;
 
+//CalCount Application
 public class CalCount {
     private User user;
     private DailyFoodLog foodLog;
-
     private Scanner input;
 
-    // EFFECTS: runs the teller application
+    // EFFECTS: runs the calorie counter application
     public CalCount() {
         runCalCount();
     }
 
+    //MODIFIES: this
+    //EFFECTS: initializes application;
+    //         processes user input
     private void runCalCount() {
         input = new Scanner(System.in);
 
         initUser();
-        initGoal();
+        setUpGoal();
         displayGoal();
 
         foodLog = new DailyFoodLog();
@@ -38,31 +41,8 @@ public class CalCount {
         System.out.println("\nGoodbye!");
     }
 
-    private void calCountOptions(String command) {
-
-        if (command.equals("a")) {
-            addEntry();
-        } else if (command.equals("c")) {
-            calorieIntake();
-        } else if (command.equals("r")) {
-            caloriesRemaining();
-        } else if (command.equals("f")) {
-            printFoodLog();
-        }
-    }
-
-    private void calorieIntake() {
-        System.out.println(foodLog.totalIntake("Calories"));
-    }
-
-    private void caloriesRemaining() {
-        ///
-    }
-
-    private void printFoodLog() {
-        System.out.println(foodLog.printFullReport());
-    }
-
+    //MODIFIES: this
+    //EFFECTS: initializes user
     private void initUser() {
         String sex = processSex();
         int age = processAge();
@@ -73,47 +53,49 @@ public class CalCount {
         user = new User(age,sex,weight,height,goal);
     }
 
+    //EFFECTS: processes user sex
     private String processSex() {
-        String command = null;
+        String command;
         String sex = null;
+
         boolean keepGoing = true;
         while (keepGoing) {
-            System.out.println("Please write your sex (M/F)");
+            System.out.println("\nPlease enter your sex (M/F)");
             command = input.next();
             if (command.equals("M") | command.equals("F")) {
                 sex = command;
                 keepGoing = false;
             } else {
-                System.out.println("Please type in a valid input (M or F)");
+                System.out.println("Please enter a valid input");
             }
         }
         return sex;
     }
 
+    //EFFECTS: processes user age
     private int processAge() {
-        System.out.println("Please write your age");
+        System.out.println("Please enter your age");
         int age = input.nextInt();
         return age;
     }
 
+    //EFFECTS: processes user weight
     private int processWeight() {
-        System.out.println("Please write your weight (kg)");
+        System.out.println("Please enter your weight (kg)");
         int weight = input.nextInt();
         return weight;
     }
 
+    //EFFECTS: processes user height
     private int processHeight() {
-        System.out.println("Please write your height (cm)");
+        System.out.println("Please enter your height (cm)");
         int height = input.nextInt();
         return height;
     }
 
+    //EFFECTS: processes user weight-related goal
     private String processGoal() {
-        System.out.println("\nDo you want to:");
-        System.out.println("Lose weight -> l");
-        System.out.println("Maintain weight -> m");
-        System.out.println("Gain weight -> g:");
-
+        displayWeightGoalOptions();
         String goal = input.next();
 
         boolean keepGoing = true;
@@ -128,36 +110,52 @@ public class CalCount {
                 keepGoing = false;
                 goal = "Gain";
             } else {
-                System.out.println("Please print a valid input: l or m or g");
+                System.out.println("Please enter a valid input");
             }
         }
         return goal;
     }
 
-    private void initGoal() {
-        System.out.println("\nWould you like to set your own custom calorie goal");
-        System.out.println("or a custom calorie goal?");
-        System.out.println("Custom -> c");
-        System.out.println("Recommended -> r");
+    //EFFECTS: displays weight-related goal options available to user
+    private void displayWeightGoalOptions() {
+        System.out.println("\nWould you like to to:");
+        System.out.println("Lose weight -> l");
+        System.out.println("Maintain weight -> m");
+        System.out.println("Gain weight -> g:");
+    }
 
+    //EFFECTS: sets up user goal to either a
+    //         custom goal or a recommended goal
+    private void setUpGoal() {
+        displayGoalOptions();
         String goal = input.next();
 
         boolean keepGoing = true;
         while (keepGoing) {
             if (goal.equals("c")) {
                 keepGoing = false;
-                setCustomGoal();
+                initCustomGoal();
             } else if (goal.equals("r")) {
                 keepGoing = false;
-                setRecommendedGoal();
+                initRecommendedGoal();
             } else {
-                System.out.println("Please print a valid input: c or r");
+                System.out.println("Please enter a valid input");
             }
         }
 
     }
 
-    private void setCustomGoal() {
+    //EFFECTS: displays options to set user goal
+    private void displayGoalOptions() {
+        System.out.println("\nWould you like to set your own calorie goal");
+        System.out.println("or follow a recommended calorie goal?");
+        System.out.println("Custom -> c");
+        System.out.println("Recommended -> r");
+    }
+
+    //MODIFIES: user
+    //EFFECTS: initializes a custom goal for the user
+    private void initCustomGoal() {
         System.out.println("Please set your target calories");
         int cal = input.nextInt();
 
@@ -173,11 +171,15 @@ public class CalCount {
         user.setCustomGoal(cal,prot,fat,carbs);
     }
 
-    private void setRecommendedGoal() {
+    //MODIFIES: user
+    //EFFECTS: initializes a recommended goal for the user
+    private void initRecommendedGoal() {
         setActivityLevel();
         user.setRecommendedGoal();
     }
 
+    //MODIFIES: user
+    //EFFECTS: sets an activity level for the user
     private void setActivityLevel() {
         setActivityLevelDisplay();
         String activity = input.next();
@@ -203,6 +205,7 @@ public class CalCount {
         }
     }
 
+    //EFFECTS: displays options to set the user's activity-level
     private void setActivityLevelDisplay() {
         System.out.println("\nPlease set your activity level:");
         System.out.println("Sedentary -> s");
@@ -211,6 +214,8 @@ public class CalCount {
         System.out.println("Extremely Active -> e");
     }
 
+    //EFFECTS: displays the target calorie, protein, fat, and carb
+    //         amounts for the user according to the goal they chose
     private void displayGoal() {
         int calories = user.getGoal().getTargetCalories();
         System.out.println("\nThe amount of calories you should eat per day: " + calories);
@@ -226,6 +231,7 @@ public class CalCount {
 
     }
 
+    //EFFECTS: displays menu of options for the user
     private void displayMenu() {
         System.out.println("\nPlease choose from the following options:");
         System.out.println("\nAdd an entry -> a");
@@ -235,11 +241,14 @@ public class CalCount {
         System.out.println("Quit app -> q");
     }
 
+    //MODIFIES: foodLog
+    //EFFECTS: initializes and adds an entry to daily food log
     private void addEntry() {
         Entry entry = makeEntry();
         foodLog.addEntry(entry);
     }
 
+    //EFFECTS: processes user input for food entry
     private Entry makeEntry() {
         String meal = chooseMeal();
         String name = nameOfFood();
@@ -257,6 +266,7 @@ public class CalCount {
         return entry;
     }
 
+    //EFFECTS: processes user input for the entry's meal
     private String chooseMeal() {
         displayMeal();
         String meal = input.next();
@@ -283,6 +293,7 @@ public class CalCount {
         return meal;
     }
 
+    //EFFECTS: displays options for what meal the entry can be
     private void displayMeal() {
         System.out.println("Please enter a meal:");
         System.out.println("Breakfast -> b");
@@ -291,17 +302,22 @@ public class CalCount {
         System.out.println("Snack -> s");
     }
 
+    //EFFECTS: processes user input for the name of the entry
     private String nameOfFood() {
         System.out.println("Name of the food you ate:");
         return input.next();
     }
 
+    //EFFECTS: processes user input for the number of calories
+    //         in the entry
     private int numberOfCal() {
         System.out.println("How many calories was in it?");
         int calories = input.nextInt();
         return calories;
     }
 
+    //EFFECTS: allows user to choose if they want to add
+    //         the number of macros that's in the entry
     private boolean addMacros() {
         System.out.println("Did you want to add the number of macros?");
         System.out.println("y or n");
@@ -324,22 +340,50 @@ public class CalCount {
         return addMacros;
     }
 
+    //EFFECTS: processes user input for amount of protein in entry
     private int setProtein() {
         System.out.println("Please enter the amount of protein you ate (g):");
         return input.nextInt();
     }
 
+    //EFFECTS: processes user input for amount of fat in entry
     private int setFat() {
         System.out.println("Please enter the amount of fat you ate (g):");
         return input.nextInt();
     }
 
+    //EFFECTS: processes user input for amount of carbs in entry
     private int setCarbs() {
         System.out.println("Please enter the amount of carbs you ate (g):");
         return input.nextInt();
     }
 
+    //EFFECTS: processes user input from main display menu
+    private void calCountOptions(String command) {
+        if (command.equals("a")) {
+            addEntry();
+        } else if (command.equals("c")) {
+            calorieIntake();
+        } else if (command.equals("r")) {
+            caloriesRemaining();
+        } else if (command.equals("f")) {
+            printFoodLog();
+        }
+    }
 
+    private void calorieIntake() {
+        System.out.println("\nNumber of calories eaten today:");
+        System.out.println(foodLog.totalIntake("Calories"));
+    }
+
+    private void caloriesRemaining() {
+        System.out.println("\nNumber of calories remaining today:");
+        System.out.println();
+    }
+
+    private void printFoodLog() {
+        System.out.println(foodLog.printFullReport());
+    }
 
 
 

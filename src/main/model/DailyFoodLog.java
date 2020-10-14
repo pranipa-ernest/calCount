@@ -36,17 +36,6 @@ public class DailyFoodLog {
         }
     }
 
-    //TODO: WRITE TESTS FOR THIS
-    /*
-     * MODIFIES: this
-     * EFFECTS: sorts food log according to meal of each entry
-     *          (BREAKFAST > LUNCH > DINNER > SNACK)
-     */
-    public void sortLog() {
-        Collections.sort(foodLog);
-    }
-
-
     /*
      * REQUIRES: trackedStat to be one of "Calories",
      *           "Protein", "Fat", or "Carbs"

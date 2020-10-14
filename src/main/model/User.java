@@ -72,7 +72,7 @@ public class User {
      *          and carbohydrate values as specified by the user
      */
     public void setCustomGoal(int cal, int prot, int fat, int carbs) {
-        this.goal = new Goal(this.goalWeight);
+        this.goal = new Goal(this);
         this.goal.setCustomGoal(cal,prot,fat,carbs);
     }
 
@@ -84,8 +84,8 @@ public class User {
      *          fat, or carb targets
      */
     public void setRecommendedGoal() {
-        this.goal = new Goal(this.goalWeight);
-        this.goal.setRecommendedGoal(this);
+        this.goal = new Goal(this);
+        this.goal.setRecommendedGoal();
     }
 
     /*
@@ -95,6 +95,14 @@ public class User {
      */
     public void updateWeight(int newWeight) {
         this.weight = newWeight;
+    }
+
+    /*
+     * MODIFIES: this, totalFoodLog
+     * EFFECTS: adds a DailyFoodLog to the TotalFoodLog of the user
+     */
+    public void addDailyFoodLog(DailyFoodLog dailyFoodLog) {
+        totalFoodLog.addEntry(dailyFoodLog);
     }
 
     //GETTERS AND SETTERS
@@ -124,5 +132,9 @@ public class User {
 
     public Goal getGoal() {
         return this.goal;
+    }
+
+    public TotalFoodLog getTotalFoodLog() {
+        return totalFoodLog;
     }
 }

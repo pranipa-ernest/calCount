@@ -9,135 +9,212 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGoal {
 
-    private Goal customGoal;
-    private Goal recommendedGoalLose;
-    private Goal recommendedGoalMaintain;
-    private Goal recommendedGoalGain;
+    private User testUserMLose;
+    private User testUserFLose;
+    private Goal testGoalM;
+    private Goal testGoalF;
 
     @BeforeEach
     public void setUp() {
-        recommendedGoalLose = new Goal("Lose");
+        testUserMLose = new User(30,"M",120,180,"Lose");
+        testUserMLose.setActivityLevel("Sedentary");
+
+        testUserFLose = new User(30,"F",120,180,"Lose");
+        testUserFLose.setActivityLevel("Sedentary");
+
+        testGoalM = new Goal(testUserMLose);
+        testGoalF = new Goal(testUserFLose);
     }
 
     @Test
     public void testConstructor() {
-        recommendedGoalMaintain = new Goal("Maintain");
-        recommendedGoalGain = new Goal("Gain");
-
-        customGoal = new Goal("Lose");
-
-        assertEquals("Lose",customGoal.getGoalWeight());
-        assertEquals("Lose",recommendedGoalLose.getGoalWeight());
-        assertEquals("Maintain",recommendedGoalMaintain.getGoalWeight());
-        assertEquals("Gain",recommendedGoalGain.getGoalWeight());
+        assertEquals(testUserMLose, testGoalM.getUser());
     }
 
     @Test
-    public void testSetTdeeMale() {
-        User testUser = new User(34,"M",87,62,"Lose");
-        testUser.setActivityLevel("Lightly Active");
+    public void testSetTdeeMaleSed() {
+        int expectedTdee = (int)(13.7 * testUserMLose.getWeight() + 5 * testUserMLose.getHeight()
+                - 6.8 * testUserMLose.getAge() + 66);
+        expectedTdee *= testUserMLose.getActivityLevel();
 
-        int expectedTdee = (int)(10 * testUser.getWeight() + 6.25 * testUser.getHeight()
-                - 5 * testUser.getAge() + 5);
-        expectedTdee *= testUser.getActivityLevel();
-
-        assertEquals(expectedTdee, recommendedGoalLose.setTdee(testUser));
+        assertEquals(expectedTdee, testGoalM.setTdee());
     }
 
     @Test
-    public void testSetTdeeFemale() {
-        User testUser = new User(34,"F",62,62,"Lose");
-        testUser.setActivityLevel("Lightly Active");
+    public void testSetTdeeMaleLightlyActive() {
+        testUserMLose.setActivityLevel("Lightly Active");
 
-        int expectedTdee = (int)(10 * testUser.getWeight() + 6.25 * testUser.getHeight()
-                - 5 * testUser.getAge() - 161);
-        expectedTdee *= testUser.getActivityLevel();
-
-        assertEquals(expectedTdee, recommendedGoalLose.setTdee(testUser));
+        int expectedTdee = (int)(13.7 * testUserMLose.getWeight() + 5 * testUserMLose.getHeight()
+                - 6.8 * testUserMLose.getAge() + 66);
+        expectedTdee *= testUserMLose.getActivityLevel();
+        assertEquals(expectedTdee, testGoalM.setTdee());
     }
 
     @Test
-    public void testFindTargetCalLose() {
-        int testTdee = 2000;
-        int expectedTarget = 1500;
-        assertEquals(expectedTarget,recommendedGoalLose.findTargetCalWithGoal(testTdee));
+    public void testSetTdeeMaleModActive() {
+        testUserMLose.setActivityLevel("Moderately Active");
+
+        int expectedTdee = (int)(13.7 * testUserMLose.getWeight() + 5 * testUserMLose.getHeight()
+                - 6.8 * testUserMLose.getAge() + 66);
+        expectedTdee *= testUserMLose.getActivityLevel();
+        assertEquals(expectedTdee, testGoalM.setTdee());
     }
 
     @Test
-    public void testFindTargetCalMaintain() {
-        recommendedGoalMaintain = new Goal("Maintain");
+    public void testSetTdeeMaleExtremelyActive() {
+        testUserMLose.setActivityLevel("Extremely Active");
 
-        int testTdee = 2000;
-        int expectedTarget = 2000;
-        assertEquals(expectedTarget,recommendedGoalMaintain.findTargetCalWithGoal(testTdee));
+        int expectedTdee = (int)(13.7 * testUserMLose.getWeight() + 5 * testUserMLose.getHeight()
+                - 6.8 * testUserMLose.getAge() + 66);
+        expectedTdee *= testUserMLose.getActivityLevel();
+        assertEquals(expectedTdee, testGoalM.setTdee());
     }
 
     @Test
-    public void testFindTargetCalGain() {
-        recommendedGoalGain = new Goal("Gain");
+    public void testSetTdeeFemaleSed() {
+        int expectedTdee = (int)(9.6 * testUserFLose.getWeight() + 1.8 * testUserFLose.getHeight()
+                - 4.7 * testUserFLose.getAge() + 655);
+        expectedTdee *= testUserFLose.getActivityLevel();
 
-        int testTdee = 2000;
-        int expectedTarget = 2500;
-        assertEquals(expectedTarget,recommendedGoalGain.findTargetCalWithGoal(testTdee));
+        assertEquals(expectedTdee, testGoalF.setTdee());
     }
 
     @Test
-    public void testSetTargetProtein() {
-        int testCal = 2000;
-        int expectedTarget = (int)(0.3 * 2000);
-        assertEquals(expectedTarget,recommendedGoalLose.setTargetProtein(testCal));
+    public void testSetTdeeFemaleLightlyActive() {
+        testUserFLose.setActivityLevel("Lightly Active");
+
+        int expectedTdee = (int)(9.6 * testUserFLose.getWeight() + 1.8 * testUserFLose.getHeight()
+                - 4.7 * testUserFLose.getAge() + 655);
+        expectedTdee *= testUserFLose.getActivityLevel();
+        assertEquals(expectedTdee, testGoalF.setTdee());
+    }
+
+    @Test
+    public void testSetTdeeFemaleModActive() {
+        testUserFLose.setActivityLevel("Moderately Active");
+
+        int expectedTdee = (int)(9.6 * testUserFLose.getWeight() + 1.8 * testUserFLose.getHeight()
+                - 4.7 * testUserFLose.getAge() + 655);
+        expectedTdee *= testUserFLose.getActivityLevel();
+        assertEquals(expectedTdee, testGoalF.setTdee());
+    }
+
+    @Test
+    public void testSetTdeeFemaleExtremelyActive() {
+        testUserFLose.setActivityLevel("Extremely Active");
+
+        int expectedTdee = (int)(9.6 * testUserFLose.getWeight() + 1.8 * testUserFLose.getHeight()
+                - 4.7 * testUserFLose.getAge() + 655);
+        expectedTdee *= testUserFLose.getActivityLevel();
+        assertEquals(expectedTdee, testGoalF.setTdee());
+    }
+
+    @Test
+    public void testTargetCalLose() {
+        assertEquals("Lose",testGoalM.getGoalWeight());
+        int tdee = testGoalM.setTdee();
+        int expectedCal = tdee - 500;
+        assertEquals(expectedCal,testGoalM.findTargetCalWithGoal(tdee));
+    }
+
+    @Test
+    public void testTargetCalLose1200() {
+        assertEquals("Lose",testGoalM.getGoalWeight());
+        User testUserSmall = new User(30,"F",43,180,"Lose");
+        Goal testGoalSmall = new Goal(testUserSmall);
+
+        assertEquals(1200,testGoalSmall.findTargetCalWithGoal(1700));
+    }
+
+    @Test
+    public void testTargetCalLoseUnder1200() {
+        assertEquals("Lose",testGoalM.getGoalWeight());
+        User testUserSmall = new User(30,"F",43,180,"Lose");
+        Goal testGoalSmall = new Goal(testUserSmall);
+
+        assertEquals(1200,testGoalSmall.findTargetCalWithGoal(1300));
+    }
+
+
+    @Test
+    public void testTargetCalGain() {
+        User testUserMGain = new User(30,"M",120,180,"Gain");
+        Goal testGoalMGain = new Goal(testUserMGain);
+        assertEquals("Gain",testGoalMGain.getGoalWeight());
+
+        int tdee = testGoalMGain.setTdee();
+        int expectedCal = tdee + 500;
+
+        assertEquals(expectedCal,testGoalMGain.findTargetCalWithGoal(tdee));
+    }
+
+    @Test
+    public void testTargetCalMaintain() {
+        User testUserMMaintain = new User(30,"M",120,180,"Maintain");
+        Goal testGoalMMaintain = new Goal(testUserMMaintain);
+        assertEquals("Maintain",testGoalMMaintain.getGoalWeight());
+        int tdee = testGoalMMaintain.setTdee();
+
+        assertEquals(tdee,testGoalMMaintain.findTargetCalWithGoal(tdee));
+    }
+
+    @Test
+    public void testSetTargetProt() {
+
+        int tdee = testGoalM.setTdee();
+        int testTargetCal = testGoalM.findTargetCalWithGoal(tdee);
+        int expectedProt = (int)(0.3 * testTargetCal);
+
+        assertEquals(expectedProt,testGoalM.setTargetProtein(testTargetCal));
     }
 
     @Test
     public void testSetTargetFat() {
-        int testCal = 2000;
-        int expectedTarget = (int)(0.2 * 2000);
-        assertEquals(expectedTarget,recommendedGoalLose.setTargetFat(testCal));
+
+        int tdee = testGoalM.setTdee();
+        int testTargetCal = testGoalM.findTargetCalWithGoal(tdee);
+        int expectedFat = (int)(0.2 * testTargetCal);
+
+        assertEquals(expectedFat,testGoalM.setTargetFat(testTargetCal));
     }
 
     @Test
-    public void testSetTargetCarbs() {
-        int testCal = 2000;
-        int expectedTarget = (int)(0.5 * 2000);
-        assertEquals(expectedTarget,recommendedGoalLose.setTargetCarbs(testCal));
+    public void testTestTargetCarbs() {
+
+        int tdee = testGoalM.setTdee();
+        int testTargetCal = testGoalM.findTargetCalWithGoal(tdee);
+        int expectedCarbs = (int)(0.5 * testTargetCal);
+
+        assertEquals(expectedCarbs,testGoalM.setTargetCarbs(testTargetCal));
     }
 
     @Test
-    public void testSetRecGoal() {
-        User testUser = new User(34,"F",62,62,"Lose");
-        testUser.setActivityLevel("Lightly Active");
+    public void testSetRecommendedGoal() {
+        int tdee = testGoalM.setTdee();
 
-        int testUserTdee = recommendedGoalLose.setTdee(testUser);
-        int expectedCal = recommendedGoalLose.findTargetCalWithGoal(testUserTdee);
-        int expectedProt = recommendedGoalLose.setTargetProtein(expectedCal);
-        int expectedFat = recommendedGoalLose.setTargetFat(expectedCal);
-        int expectedCarbs = recommendedGoalLose.setTargetCarbs(expectedCal);
+        int expectedCal = testGoalM.findTargetCalWithGoal(tdee);
+        int expectedProt = testGoalM.setTargetProtein(expectedCal);
+        int expectedFat = testGoalM.setTargetFat(expectedCal);
+        int expectedCarbs = testGoalM.setTargetCarbs(expectedCal);
 
-        recommendedGoalLose.setRecommendedGoal(testUser);
+        testGoalM.setRecommendedGoal();
 
-        assertEquals(expectedCal,recommendedGoalLose.getTargetCalories());
-        assertEquals(expectedProt,recommendedGoalLose.getTargetProtein());
-        assertEquals(expectedFat,recommendedGoalLose.getTargetFat());
-        assertEquals(expectedCarbs,recommendedGoalLose.getTargetCarbs());
+        assertEquals(expectedCal,testGoalM.getTargetCalories());
+        assertEquals(expectedProt,testGoalM.getTargetProtein());
+        assertEquals(expectedFat,testGoalM.getTargetFat());
+        assertEquals(expectedCarbs,testGoalM.getTargetCarbs());
     }
 
     @Test
-    public void testCustomGoal() {
-        customGoal = new Goal("Lose");
-        customGoal.setCustomGoal(2500,80,25,67);
+    public void testSetCustomGoal() {
+        testGoalM.setCustomGoal(2000,35,12,25);
 
-        int expectedCal = 2500;
-        int expectedProt = 80;
-        int expectedFat = 25;
-        int expectedCarbs = 67;
-
-        assertEquals(expectedCal,customGoal.getTargetCalories());
-        assertEquals(expectedProt,customGoal.getTargetProtein());
-        assertEquals(expectedFat,customGoal.getTargetFat());
-        assertEquals(expectedCarbs,customGoal.getTargetCarbs());
+        assertEquals(2000,testGoalM.getTargetCalories());
+        assertEquals(35,testGoalM.getTargetProtein());
+        assertEquals(12,testGoalM.getTargetFat());
+        assertEquals(25,testGoalM.getTargetCarbs());
 
     }
-
 
 
 
