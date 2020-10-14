@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class CalCount {
     private User user;
     private DailyFoodLog foodLog;
+    private DailyIntake dailyIntake;
     private Scanner input;
 
     // EFFECTS: runs the calorie counter application
@@ -34,6 +35,7 @@ public class CalCount {
             command = input.next();
             if (command.equals("q")) {
                 keepGoing = false;
+                user.addDailyFoodLog(foodLog);
             } else {
                 calCountOptions(command);
             }
@@ -371,16 +373,21 @@ public class CalCount {
         }
     }
 
+    //EFFECTS: displays number of calories user has eaten so far
     private void calorieIntake() {
         System.out.println("\nNumber of calories eaten today:");
         System.out.println(foodLog.totalIntake("Calories"));
     }
 
+    //EFFECTS: displays number of calories user has left to eat today
     private void caloriesRemaining() {
+        dailyIntake = new DailyIntake(user.getGoal());
+        int caloriesRemaining = dailyIntake.totalCaloriesRemaining(foodLog);
         System.out.println("\nNumber of calories remaining today:");
-        System.out.println();
+        System.out.println(caloriesRemaining);
     }
 
+    //EFFECTS: displays entire food log for the day
     private void printFoodLog() {
         System.out.println(foodLog.printFullReport());
     }

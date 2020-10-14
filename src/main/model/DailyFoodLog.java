@@ -46,15 +46,15 @@ public class DailyFoodLog {
     public int totalIntake(String trackedStat) {
         int totalIntake = 0;
 
-        if (trackedStat == "Calories") {
+        if (trackedStat.equals("Calories")) {
             for (Entry entry : foodLog) {
                 totalIntake += entry.getCalories();
             }
-        } else if (trackedStat == "Protein") {
+        } else if (trackedStat.equals("Protein")) {
             for (Entry entry : foodLog) {
                 totalIntake += entry.getProtein();
             }
-        } else if (trackedStat == "Fat") {
+        } else if (trackedStat.equals("Fat")) {
             for (Entry entry : foodLog) {
                 totalIntake += entry.getFat();
             }
@@ -78,7 +78,7 @@ public class DailyFoodLog {
         int mealCal = 0;
 
         for (Entry entry : foodLog) {
-            if (entry.getMeal() == meal) {
+            if ((entry.getMeal()).equals(meal)) {
                 mealCal += entry.getCalories();
                 mealReport += "\n" + entry.printEntry();
             }
@@ -94,9 +94,9 @@ public class DailyFoodLog {
     public String printFullReport() {
         String fullReport = date;
         for (Entry entry : foodLog) {
-            fullReport += "\n" + entry.printEntry();
+            fullReport += "\n\n" + entry.printEntry();
         }
-        fullReport += "\n" + "Total Calories: " + totalIntake("Calories");
+        fullReport += "\n\n" + "Total Calories: " + totalIntake("Calories");
         return fullReport;
     }
 
