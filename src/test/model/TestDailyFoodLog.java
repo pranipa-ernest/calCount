@@ -229,28 +229,4 @@ public class TestDailyFoodLog {
         assertEquals(expectedResult,testFoodLog.printFullReport());
     }
 
-
-
-
-
-
-//    @Test
-//    public void testSortLog() {
-//        testFoodLog.addEntry(testEntryLunch);
-//        testFoodLog.addEntry(testEntrySnack);
-//        testFoodLog.addEntry(testEntryBreakfast);
-//        testFoodLog.addEntry(testEntryDinner);
-//
-//        testFoodLog.sortLog();
-//
-//        DailyFoodLog sortedLog = new DailyFoodLog();
-//        sortedLog.addEntry(testEntryBreakfast);
-//        sortedLog.addEntry(testEntryLunch);
-//        sortedLog.addEntry(testEntryDinner);
-//        sortedLog.addEntry(testEntrySnack);
-//
-//        assertEquals(sortedLog.printFullReport(),testFoodLog.printFullReport());
-//
-//    }
-
 }

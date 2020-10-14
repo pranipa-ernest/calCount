@@ -13,6 +13,9 @@ of calories, and the number of macronutrients (optional).
  */
 public class Entry {
 
+    //meal of entry
+    //is of type enum as I want to implement a sorting algo
+    //later on in the project
     private Meals meal;
 
     private enum Meals {
@@ -75,8 +78,12 @@ public class Entry {
         String meal = this.getMeal();
         String food = "Food: " + this.food;
         String cal = "Calories: " + this.calories;
+        String prot = "Protein:" + this.protein;
+        String fat = "Fat:" + this.fat;
+        String carbs = "Carbs:" + this.carbs;
 
-        return (meal + "\n" + food + "\n" + cal);
+
+        return (meal + "\n" + food + "\n" + cal + "\n" + prot + "\n" + fat + "\n" + carbs);
     }
 
     //GETTERS AND SETTERS
