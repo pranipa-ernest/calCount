@@ -47,7 +47,7 @@ class TestEntry {
     @Test
     public void testPrintEntry() {
         String entryResult = "BREAKFAST" + "\n" + "Food: Pancakes"
-                + "\n" + "Calories: 450";
+                + "\n" + "Calories: 450" + "\n" + "Protein: 0" + "\n" + "Fat: 0" + "\n" + "Carbs: 0";
         assertEquals(testEntry.printEntry(),entryResult);
     }
 

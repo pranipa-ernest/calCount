@@ -78,9 +78,9 @@ public class Entry {
         String meal = this.getMeal();
         String food = "Food: " + this.food;
         String cal = "Calories: " + this.calories;
-        String prot = "Protein:" + this.protein;
-        String fat = "Fat:" + this.fat;
-        String carbs = "Carbs:" + this.carbs;
+        String prot = "Protein: " + this.protein;
+        String fat = "Fat: " + this.fat;
+        String carbs = "Carbs: " + this.carbs;
 
 
         return (meal + "\n" + food + "\n" + cal + "\n" + prot + "\n" + fat + "\n" + carbs);
