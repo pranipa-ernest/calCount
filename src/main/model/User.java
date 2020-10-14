@@ -54,13 +54,13 @@ public class User {
      * EFFECTS: sets user activity level
      */
     public void setActivityLevel(String activityLevel) {
-        if (activityLevel == "Sedentary") {
+        if (activityLevel.equals("Sedentary")) {
             this.activityLevel = 1.200;
-        } else if (activityLevel == "Lightly Active") {
+        } else if (activityLevel.equals("Lightly Active")) {
             this.activityLevel = 1.375;
-        } else if (activityLevel == "Moderately Active") {
+        } else if (activityLevel.equals("Moderately Active")) {
             this.activityLevel = 1.550;
-        } else if (activityLevel == "Extremely Active") {
+        } else {
             this.activityLevel = 1.900;
         }
     }
