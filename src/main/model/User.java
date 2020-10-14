@@ -27,6 +27,8 @@ public class User {
                                   //protein, fat, and carb values specific
                                   //to the user and their goalWeight)
 
+    private TotalFoodLog totalFoodLog;
+
     /* Constructs a user
      * REQUIRES: age >= 18 years && sex to be either "M" or "F"
      *           && weight to be in kg && height to be in cm
@@ -40,6 +42,8 @@ public class User {
         this.height = height;
         this.sex = sex;
         this.goalWeight = goalWeight;
+
+        this.totalFoodLog = new TotalFoodLog();
     }
 
     /*
@@ -73,15 +77,13 @@ public class User {
     }
 
     /*
-     * REQUIRES: activityLevel to be one of: "Sedentary", "Lightly
-     *           Active", "Moderately Active", or "Extremely Active"
+     * REQUIRES: user activity level to have been set to a valid value
      * MODIFIES: this, goal
      * EFFECTS: constructs goal according to user activityLevel. User
      *          does not have to specify their own calorie, protein,
      *          fat, or carb targets
      */
-    public void setRecommendedGoal(String activityLevel) {
-        setActivityLevel(activityLevel);
+    public void setRecommendedGoal() {
         this.goal = new Goal(this.goalWeight);
         this.goal.setRecommendedGoal(this);
     }

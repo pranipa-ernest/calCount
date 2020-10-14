@@ -69,7 +69,8 @@ public class TestUser {
 
     @Test
     public void testRecommendedGoalFemaleSedentary() {
-        testUserFemaleLose.setRecommendedGoal("Sedentary");
+        testUserFemaleLose.setActivityLevel("Sedentary");
+        testUserFemaleLose.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserFemaleLose.getWeight()
                 + 6.25 * testUserFemaleLose.getHeight()
@@ -88,7 +89,8 @@ public class TestUser {
 
     @Test
     public void testRecommendedGoalFemaleLightActive() {
-        testUserFemaleLose.setRecommendedGoal("Lightly Active");
+        testUserFemaleLose.setActivityLevel("Lightly Active");
+        testUserFemaleLose.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserFemaleLose.getWeight()
                 + 6.25 * testUserFemaleLose.getHeight()
@@ -107,7 +109,8 @@ public class TestUser {
 
     @Test
     public void testRecommendedGoalFemaleModActive() {
-        testUserFemaleLose.setRecommendedGoal("Moderately Active");
+        testUserFemaleLose.setActivityLevel("Moderately Active");
+        testUserFemaleLose.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserFemaleLose.getWeight()
                 + 6.25 * testUserFemaleLose.getHeight()
@@ -126,7 +129,8 @@ public class TestUser {
 
     @Test
     public void testRecommendedGoalFemaleExtremeActive() {
-        testUserFemaleLose.setRecommendedGoal("Extremely Active");
+        testUserFemaleLose.setActivityLevel("Extremely Active");
+        testUserFemaleLose.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserFemaleLose.getWeight()
                 + 6.25 * testUserFemaleLose.getHeight()
@@ -145,7 +149,8 @@ public class TestUser {
 
     @Test
     public void testRecommendedGoalMaleSedentary() {
-        testUserMaleLose.setRecommendedGoal("Sedentary");
+        testUserMaleLose.setActivityLevel("Sedentary");
+        testUserMaleLose.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserMaleLose.getWeight()
                 + 6.25 * testUserMaleLose.getHeight()
@@ -164,7 +169,8 @@ public class TestUser {
 
     @Test
     public void testRecommendedGoalMaleLightActive() {
-        testUserMaleLose.setRecommendedGoal("Lightly Active");
+        testUserMaleLose.setActivityLevel("Lightly Active");
+        testUserMaleLose.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserMaleLose.getWeight()
                 + 6.25 * testUserMaleLose.getHeight()
@@ -183,7 +189,8 @@ public class TestUser {
 
     @Test
     public void testRecommendedGoalMaleModActive() {
-        testUserMaleLose.setRecommendedGoal("Moderately Active");
+        testUserMaleLose.setActivityLevel("Moderately Active");
+        testUserMaleLose.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserMaleLose.getWeight()
                 + 6.25 * testUserMaleLose.getHeight()
@@ -202,7 +209,8 @@ public class TestUser {
 
     @Test
     public void testRecommendedGoalMaleExtremelyActive() {
-        testUserMaleLose.setRecommendedGoal("Extremely Active");
+        testUserMaleLose.setActivityLevel("Extremely Active");
+        testUserMaleLose.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserMaleLose.getWeight()
                 + 6.25 * testUserMaleLose.getHeight()
@@ -223,7 +231,8 @@ public class TestUser {
     public void testRecommendedGoalFemaleMaintain() {
 
         User testUserFemaleMaintain = new User(31,"F",67,165,"Maintain");
-        testUserFemaleMaintain.setRecommendedGoal("Sedentary");
+        testUserFemaleMaintain.setActivityLevel("Sedentary");
+        testUserFemaleMaintain.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserFemaleMaintain.getWeight()
                 + 6.25 * testUserFemaleMaintain.getHeight()
@@ -243,7 +252,8 @@ public class TestUser {
     @Test
     public void testRecommendedGoalFemaleGain() {
         User testUserFemaleGain = new User(31,"F",67,165,"Gain");
-        testUserFemaleGain.setRecommendedGoal("Sedentary");
+        testUserFemaleGain.setActivityLevel("Sedentary");
+        testUserFemaleGain.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserFemaleGain.getWeight()
                 + 6.25 * testUserFemaleGain.getHeight()
@@ -264,7 +274,8 @@ public class TestUser {
     public void testRecommendedGoalMaleMaintain() {
 
         User testUserMaleMaintain = new User(31,"M",83,165,"Maintain");
-        testUserMaleMaintain.setRecommendedGoal("Sedentary");
+        testUserMaleMaintain.setActivityLevel("Sedentary");
+        testUserMaleMaintain.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserMaleMaintain.getWeight()
                 + 6.25 * testUserMaleMaintain.getHeight()
@@ -284,7 +295,8 @@ public class TestUser {
     @Test
     public void testRecommendedGoalMaleGain() {
         User testUserMaleGain = new User(31,"M",67,165,"Gain");
-        testUserMaleGain.setRecommendedGoal("Sedentary");
+        testUserMaleGain.setActivityLevel("Sedentary");
+        testUserMaleGain.setRecommendedGoal();
 
         int tdee = (int)((10 * testUserMaleGain.getWeight()
                 + 6.25 * testUserMaleGain.getHeight()
