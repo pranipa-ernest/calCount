@@ -41,4 +41,4 @@ for the current day (food name, assoc calories, macros).
 - As a user, I want to be able to save my profile, my total food log,
 and my daily food log for the current day to a file. 
 - As a user, when I start the application, I want to be able to load my daily
-food log for the current day. 
+food log for the current day
