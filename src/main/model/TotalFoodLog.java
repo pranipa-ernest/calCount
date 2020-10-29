@@ -1,12 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import persistence.WritableArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /*
 A collection of all DailyFoodLogs for a particular User
  */
-public class TotalFoodLog {
+public class TotalFoodLog implements WritableArray {
 
     private List<DailyFoodLog> totalFoodLog;  //list of DailyFoodLogs
 
@@ -25,6 +28,16 @@ public class TotalFoodLog {
         totalFoodLog.add(foodLog);
     }
 
+    @Override
+    public JSONArray toJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (DailyFoodLog foodLog : totalFoodLog) {
+            jsonArray.put(foodLog.toJson());
+        }
+        return jsonArray;
+    }
+
     //GETTERS AND SETTERS
     public int getSize() {
         return totalFoodLog.size();
@@ -33,6 +46,5 @@ public class TotalFoodLog {
     public DailyFoodLog getEntry(int x) {
         return totalFoodLog.get(x);
     }
-
 
 }

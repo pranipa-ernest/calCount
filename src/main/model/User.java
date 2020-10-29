@@ -1,11 +1,15 @@
 package model;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
 Represents a user of CalCount (name, age, sex, weight), their Goal,
 and their associated TotalFoodLog
  */
-public class User {
+public class User implements Writable {
 
     private int age;           //user age
     private String sex;        //user sex: "M" - males
@@ -42,6 +46,7 @@ public class User {
         this.height = height;
         this.sex = sex;
         this.goalWeight = goalWeight;
+        this.activityLevel = 0;
 
         this.totalFoodLog = new TotalFoodLog();
     }
@@ -105,6 +110,44 @@ public class User {
         totalFoodLog.addEntry(dailyFoodLog);
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("age", this.age);
+        json.put("sex", this.sex);
+        json.put("weight", this.weight);
+        json.put("height",this.height);
+        json.put("goal weight", this.goalWeight);
+        json.put("activity level", activityLevelToJson());
+
+        json.put("goal", goalToJson());
+
+        json.put("total food log", totalFoodLogToJson());
+        return json;
+    }
+
+    private String activityLevelToJson() {
+        if (activityLevel == 1.200) {
+            return "Sedentary";
+        } else if (activityLevel == 1.375) {
+            return "Lightly Active";
+        } else if (activityLevel == 1.550) {
+            return "Moderately Active";
+        } else {
+            return "Extremely Active";
+        }
+    }
+
+    private JSONArray totalFoodLogToJson() {
+        JSONArray jsonArray = this.totalFoodLog.toJson();
+        return jsonArray;
+    }
+
+    private JSONObject goalToJson() {
+        JSONObject json = this.goal.toJson();
+        return json;
+    }
+
     //GETTERS AND SETTERS
     public int getAge() {
         return this.age;
@@ -137,4 +180,5 @@ public class User {
     public TotalFoodLog getTotalFoodLog() {
         return totalFoodLog;
     }
+
 }

@@ -1,31 +1,78 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 //CalCount Application
 public class CalCount {
+    private static final String JSON_STORE = "./data/calCount.json";
+
     private User user;
     private DailyFoodLog foodLog;
     private DailyIntake dailyIntake;
     private Scanner input;
 
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     // EFFECTS: runs the calorie counter application
-    public CalCount() {
+    public CalCount() throws FileNotFoundException {
+        input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        runStartingMenu();
+    }
+
+    private void runStartingMenu() {
+        boolean keepGoing = true;
+        String command = null;
+
+        while (keepGoing) {
+            displayStartMenu();
+            command = input.next();
+            command = command.toLowerCase();
+            if (command.equals("q")) {
+                keepGoing = false;
+            } else if (command.equals("n")) {
+                initCalCount();
+                keepGoing = false;
+            } else if (command.equals("l")) {
+                loadCalCount();
+                keepGoing = false;
+            } else {
+                System.out.println("\nPlease choose from the existing options");
+            }
+        }
+    }
+
+    private void loadCalCount() {
+        try {
+            user = jsonReader.read();
+            System.out.println("Loaded existing user from " + JSON_STORE);
+            runCalCount();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+            System.out.println("User may not exist");
+        }
+    }
+
+    private void initCalCount() {
+        initUser();
+        setUpGoal();
+        displayGoal();
         runCalCount();
     }
+
 
     //MODIFIES: this
     //EFFECTS: initializes application;
     //         processes user input
     private void runCalCount() {
-        input = new Scanner(System.in);
-
-        initUser();
-        setUpGoal();
-        displayGoal();
-
         foodLog = new DailyFoodLog();
 
         boolean keepGoing = true;
@@ -33,14 +80,59 @@ public class CalCount {
         while (keepGoing) {
             displayMenu();
             command = input.next();
+            command = command.toLowerCase();
             if (command.equals("q")) {
                 keepGoing = false;
                 user.addDailyFoodLog(foodLog);
+                saveApp();
             } else {
                 calCountOptions(command);
             }
         }
         System.out.println("\nGoodbye!");
+    }
+
+    private void saveApp() {
+        boolean keepGoing = true;
+        String command = null;
+        while (keepGoing) {
+            saveAppDisplay();
+            command = input.next();
+            command = command.toLowerCase();
+            if (command.equals("n")) {
+                keepGoing = false;
+            } else if (command.equals("y")) {
+                saveCalCount();
+                keepGoing = false;
+            } else {
+                System.out.println("Please choose a valid option");
+            }
+        }
+    }
+
+    private void saveCalCount() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(user);
+            jsonWriter.close();
+            System.out.println("Saved application");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    private void saveAppDisplay() {
+        System.out.println("\nWould you like to save your existing food logs?");
+        System.out.println("Yes -> y");
+        System.out.println("No -> n");
+    }
+
+    //EFFECTS: displays initial menu when running application
+    private void displayStartMenu() {
+        System.out.println("\nPlease choose from the following options:");
+        System.out.println("Set up a new user -> n");
+        System.out.println("Load existing user -> l");
+        System.out.println("Quit app -> q");
     }
 
     //MODIFIES: this
@@ -62,9 +154,10 @@ public class CalCount {
 
         boolean keepGoing = true;
         while (keepGoing) {
-            System.out.println("\nPlease enter your sex (M/F)");
+            System.out.println("\nPlease enter your sex (m/f)");
             command = input.next();
-            if (command.equals("M") | command.equals("F")) {
+            command = command.toLowerCase();
+            if (command.equals("m") | command.equals("f")) {
                 sex = command;
                 keepGoing = false;
             } else {

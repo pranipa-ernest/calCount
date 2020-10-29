@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
 Represents a Goal specific to the user. Sets calorie, protein,
 fat, and carbohydrate targets that the user aims to meet
@@ -8,7 +11,7 @@ or they can choose to follow recommended targets based on user's
 stats (i.e. weight, height, age, sex) and goal (lose weight, maintain
 weight, or gain weight)
  */
-public class Goal {
+public class Goal implements Writable {
 
     private User user;   // One of: "Lose", "Maintain", or "Gain"
 
@@ -122,6 +125,16 @@ public class Goal {
         this.targetCarbs = carbs;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("target calories", targetCalories);
+        json.put("target protein", targetProtein);
+        json.put("target fat", targetFat);
+        json.put("target carbs", targetCarbs);
+        return json;
+    }
+
     //GETTERS AND SETTERS
     public int getTargetCalories() {
         return targetCalories;
@@ -146,5 +159,4 @@ public class Goal {
     public User getUser() {
         return user;
     }
-
 }

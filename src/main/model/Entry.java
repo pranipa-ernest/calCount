@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -11,7 +14,7 @@ Represents an individual entry in the food log. Each entry has fields
 for the date recorded, the type of meal, the name of the food, the number
 of calories, and the number of macronutrients (optional).
  */
-public class Entry {
+public class Entry implements Writable {
 
     //meal of entry
     //is of type enum as I want to implement a sorting algo
@@ -84,6 +87,18 @@ public class Entry {
 
 
         return (meal + "\n" + food + "\n" + cal + "\n" + prot + "\n" + fat + "\n" + carbs);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("meal",this.meal);
+        json.put("food",this.food);
+        json.put("calories",this.calories);
+        json.put("protein",this.protein);
+        json.put("fat",this.fat);
+        json.put("carbs",this.carbs);
+        return json;
     }
 
     //GETTERS AND SETTERS
