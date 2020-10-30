@@ -38,9 +38,48 @@ public class TestJsonWriter extends JsonTest{
     }
 
     @Test
+    public void testWriterModActivityLevel() {
+        User userMod = new User(35,"F",120,189,"Lose");
+        userMod.setActivityLevel("Moderately Active");
+        userMod.setCustomGoal(1860,60,30,120);
+
+        testDifferentActivityLevels(userMod,"./data/testWriterModUser.json");
+    }
+
+    @Test
+    public void testWriterLightActivityLevel() {
+        User userMod = new User(35,"F",120,189,"Lose");
+        userMod.setActivityLevel("Lightly Active");
+        userMod.setCustomGoal(1860,60,30,120);
+
+        testDifferentActivityLevels(userMod,"./data/testWriterLightUser.json");
+    }
+
+    @Test
+    public void testWriterExtremeActivityLevel() {
+        User userMod = new User(35,"F",120,189,"Lose");
+        userMod.setActivityLevel("Extremely Active");
+        userMod.setCustomGoal(1860,60,30,120);
+
+        testDifferentActivityLevels(userMod,"./data/testWriterExtremeUser.json");
+    }
+
+    public void testDifferentActivityLevels(User user, String destination) {
+        try {
+            writeFile(user,destination);
+            JsonReader reader = new JsonReader(destination);
+            User testUser = reader.read();
+            checkUser(testUser,user);
+
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
     public void testWriterEmptyTotalFoodLog() {
         try {
-            writeFile("./data/testWriterEmptyTotalFoodLog.json");
+            writeFile(user,"./data/testWriterEmptyTotalFoodLog.json");
 
             JsonReader reader = new JsonReader("./data/testWriterEmptyTotalFoodLog.json");
             User testUser = reader.read();
@@ -58,7 +97,7 @@ public class TestJsonWriter extends JsonTest{
             DailyFoodLog log = writeOct26FoodLog(1);
             user.addDailyFoodLog(log);
 
-            writeFile("./data/testWriterOneDailyFoodLogOneEntry.json");
+            writeFile(user,"./data/testWriterOneDailyFoodLogOneEntry.json");
 
             JsonReader reader = new JsonReader("./data/testWriterOneDailyFoodLogOneEntry.json");
             User testUser = reader.read();
@@ -78,7 +117,7 @@ public class TestJsonWriter extends JsonTest{
             DailyFoodLog log = writeOct26FoodLog(3);
             user.addDailyFoodLog(log);
 
-            writeFile("./data/testWriterOneDailyFoodLogMultipleEntries.json");
+            writeFile(user,"./data/testWriterOneDailyFoodLogMultipleEntries.json");
 
             JsonReader reader = new JsonReader("./data/testWriterOneDailyFoodLogMultipleEntries.json");
             User testUser = reader.read();
@@ -101,7 +140,7 @@ public class TestJsonWriter extends JsonTest{
             user.addDailyFoodLog(log26);
             user.addDailyFoodLog(log27);
 
-            writeFile("./data/testWriterMultipleDailyFoodLogs.json");
+            writeFile(user,"./data/testWriterMultipleDailyFoodLogs.json");
 
             JsonReader reader = new JsonReader("./data/testWriterMultipleDailyFoodLogs.json");
             User testUser = reader.read();
@@ -116,18 +155,18 @@ public class TestJsonWriter extends JsonTest{
             checkDailyFoodLog(testDailyLog27,expectedEntries27,DATE_27);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            fail("Exception should not have been thrown");
         }
     }
 
-    public void writeFile(String destination) {
+    public void writeFile(User user, String destination) {
         try {
             JsonWriter writer = new JsonWriter(destination);
             writer.open();
             writer.write(user);
             writer.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            fail("Exception should not have been thrown");
         }
     }
 

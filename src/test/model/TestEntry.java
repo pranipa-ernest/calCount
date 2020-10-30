@@ -28,6 +28,17 @@ class TestEntry {
     }
 
     @Test
+    public void testDifferentMeals() {
+        Entry lunch = new Entry("Lunch","Sandwich",450);
+        Entry dinner = new Entry("Dinner","Pasta",780);
+        Entry snack = new Entry("Snack","Chips",430);
+
+        assertEquals("LUNCH",lunch.getMeal());
+        assertEquals("DINNER",dinner.getMeal());
+        assertEquals("SNACK",snack.getMeal());
+    }
+
+    @Test
     public void testSetMacros() {
         assertEquals(testEntry.getProtein(),0);
         assertEquals(testEntry.getFat(),0);
