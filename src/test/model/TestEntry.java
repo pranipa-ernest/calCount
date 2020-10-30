@@ -14,13 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestEntry {
 
     private Entry testEntry;
-    private String date;
 
     @BeforeEach
     public void runBefore() {
         testEntry = new Entry("BREAKFAST","Pancakes",450);
-        LocalDate localDate = LocalDate.now();
-        date = localDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
     }
 
     @Test
@@ -28,7 +25,6 @@ class TestEntry {
         assertEquals(testEntry.getMeal(), "BREAKFAST");
         assertEquals(testEntry.getFood(),"Pancakes");
         assertEquals(testEntry.getCalories(),450);
-        assertEquals(testEntry.getDate(),date);
     }
 
     @Test
@@ -51,10 +47,4 @@ class TestEntry {
         assertEquals(testEntry.printEntry(),entryResult);
     }
 
-    @Test
-    public void testSetDate() {
-        String testDate = "June 30, 2009";
-        testEntry.setDate(testDate);
-        assertEquals("June 30, 2009",testEntry.getDate());
-    }
 }

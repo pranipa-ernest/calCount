@@ -32,13 +32,10 @@ public class DailyFoodLog implements Writable {
 
     /*
      * MODIFIES: this
-     * EFFECTS: adds an Entry to the food log if Entry date matches current date
+     * EFFECTS: adds an Entry to the food log
      */
     public void addEntry(Entry entry) {
-        String entryDate = entry.getDate();
-        if (this.date.equals(entryDate)) {
-            foodLog.add(entry);
-        }
+        foodLog.add(entry);
     }
 
     /*
@@ -105,6 +102,9 @@ public class DailyFoodLog implements Writable {
         return fullReport;
     }
 
+    /*
+     * EFFECTS: converts this to json format
+     */
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -113,6 +113,9 @@ public class DailyFoodLog implements Writable {
         return json;
     }
 
+    /*
+     * EFFECTS: converts each entry to json format
+     */
     public JSONArray entriesToJson() {
         JSONArray jsonArray = new JSONArray();
 

@@ -1,0 +1,25 @@
+{
+    "activity level": "Sedentary",
+    "goal": {
+        "target calories": 1860,
+        "target fat": 30,
+        "target protein": 60,
+        "target carbs": 120
+    },
+    "goal weight": "Lose",
+    "sex": "F",
+    "total food log": [{
+        "date": "October 26, 2020",
+        "entries": [{
+            "meal": "BREAKFAST",
+            "carbs": 0,
+            "protein": 0,
+            "fat": 0,
+            "calories": 340,
+            "food": "Cereal"
+        }]
+    }],
+    "weight": 120,
+    "age": 35,
+    "height": 189
+}

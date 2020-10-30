@@ -107,9 +107,23 @@ public class User implements Writable {
      * EFFECTS: adds a DailyFoodLog to the TotalFoodLog of the user
      */
     public void addDailyFoodLog(DailyFoodLog dailyFoodLog) {
-        totalFoodLog.addEntry(dailyFoodLog);
+        totalFoodLog.addLog(dailyFoodLog);
     }
 
+    /*
+     * REQUIRES: date to be in long form (i.e. October 30, 2020)
+     * EFFECTS: finds and returns daily food log with specified date
+     *          in user's total food log collection
+     */
+    public DailyFoodLog findDailyFoodLog(String date) {
+        return totalFoodLog.findLog(date);
+    }
+
+
+    /*
+     * EFFECTS: converts user information, goal, and associated
+     *          total food log to json format
+     */
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -126,6 +140,9 @@ public class User implements Writable {
         return json;
     }
 
+    /*
+     * EFFECTS: returns string representation of activityLevel
+     */
     private String activityLevelToJson() {
         if (activityLevel == 1.200) {
             return "Sedentary";
@@ -138,11 +155,17 @@ public class User implements Writable {
         }
     }
 
+    /*
+     * EFFECTS: converts user's total food log to json format
+     */
     private JSONArray totalFoodLogToJson() {
         JSONArray jsonArray = this.totalFoodLog.toJson();
         return jsonArray;
     }
 
+    /*
+     * EFFECTS: converts user's goal to json format
+     */
     private JSONObject goalToJson() {
         JSONObject json = this.goal.toJson();
         return json;

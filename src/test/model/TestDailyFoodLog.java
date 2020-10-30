@@ -40,16 +40,7 @@ public class TestDailyFoodLog {
     }
 
     @Test
-    public void testAddOneEntryWrongDate() {
-        Entry testEntryWrongDate = new Entry("Snack", "Ice Cream", 460);
-        testEntryWrongDate.setDate("May 12, 1968");
-
-        testFoodLog.addEntry(testEntryWrongDate);
-        assertEquals(0, testFoodLog.getSize());
-    }
-
-    @Test
-    public void testAddOneEntryRightDate() {
+    public void testAddOneEntry() {
         testFoodLog.addEntry(testEntryBreakfast);
         assertEquals(1,testFoodLog.getSize());
         assertEquals(testEntryBreakfast,testFoodLog.getEntry(0));

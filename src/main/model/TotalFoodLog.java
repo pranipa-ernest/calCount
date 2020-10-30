@@ -24,10 +24,22 @@ public class TotalFoodLog implements WritableArray {
      * MODIFIES: this
      * EFFECTS: adds a single DailyFoodLog to totalFoodLog
      */
-    public void addEntry(DailyFoodLog foodLog) {
+    public void addLog(DailyFoodLog foodLog) {
         totalFoodLog.add(foodLog);
     }
 
+    public DailyFoodLog findLog(String date) {
+        for (DailyFoodLog foodLog : totalFoodLog) {
+            if (foodLog.getDate().equals(date)) {
+                return foodLog;
+            }
+        }
+        return null;
+    }
+
+    /*
+     * EFFECTS: converts this to json format
+     */
     @Override
     public JSONArray toJson() {
         JSONArray jsonArray = new JSONArray();
@@ -43,7 +55,7 @@ public class TotalFoodLog implements WritableArray {
         return totalFoodLog.size();
     }
 
-    public DailyFoodLog getEntry(int x) {
+    public DailyFoodLog getLog(int x) {
         return totalFoodLog.get(x);
     }
 

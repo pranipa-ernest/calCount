@@ -125,6 +125,9 @@ public class Goal implements Writable {
         this.targetCarbs = carbs;
     }
 
+    /*
+     * EFFECTS: converts goal to json format
+     */
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

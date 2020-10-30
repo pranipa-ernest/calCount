@@ -3,15 +3,9 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.List;
-
 /*
 Represents an individual entry in the food log. Each entry has fields
-for the date recorded, the type of meal, the name of the food, the number
+for the type of meal, the name of the food, the number
 of calories, and the number of macronutrients (optional).
  */
 public class Entry implements Writable {
@@ -28,7 +22,6 @@ public class Entry implements Writable {
         SNACK
     }
 
-    private String date;    //date of entry
     private String food;       //name of food eaten
     private int calories;      //amount of calories
 
@@ -47,17 +40,15 @@ public class Entry implements Writable {
     public Entry(String meal, String food, int calories) {
         this.food = food;
         this.calories = calories;
+        meal = meal.toUpperCase();
 
-        LocalDate localDate = LocalDate.now();
-        this.date = localDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
-
-        if (meal == "BREAKFAST") {
+        if (meal.equals("BREAKFAST")) {
             this.meal = Meals.BREAKFAST;
-        } else if (meal == "LUNCH") {
+        } else if (meal.equals("LUNCH")) {
             this.meal = Meals.LUNCH;
-        } else if (meal == "DINNER") {
+        } else if (meal.equals("DINNER")) {
             this.meal = Meals.DINNER;
-        } else if (meal == "SNACK") {
+        } else if (meal.equals("SNACK")) {
             this.meal = Meals.SNACK;
         }
     }
@@ -89,6 +80,9 @@ public class Entry implements Writable {
         return (meal + "\n" + food + "\n" + cal + "\n" + prot + "\n" + fat + "\n" + carbs);
     }
 
+    /*
+     * EFFECTS: converts this to json format
+     */
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -124,20 +118,6 @@ public class Entry implements Writable {
 
     public int getCarbs() {
         return this.carbs;
-    }
-
-    public String getDate() {
-        return this.date;
-    }
-
-    /*
-     * REQUIRES: date to be in correct LocalDate LONG DateTime format
-     *           ex. June 30, 2009
-     * MODIFIES: this
-     * EFFECTS: changes Entry date
-     */
-    public void setDate(String date) {
-        this.date = date;
     }
 
 }

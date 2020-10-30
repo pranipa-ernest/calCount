@@ -1,10 +1,11 @@
 package model;
 
-import model.DailyFoodLog;
-import model.Goal;
-import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -92,7 +93,7 @@ public class TestUser {
         DailyFoodLog dailyFoodLog = new DailyFoodLog();
         testUserFemaleLose.addDailyFoodLog(dailyFoodLog);
         assertEquals(1,testUserFemaleLose.getTotalFoodLog().getSize());
-        assertEquals(dailyFoodLog,testUserFemaleLose.getTotalFoodLog().getEntry(0));
+        assertEquals(dailyFoodLog,testUserFemaleLose.getTotalFoodLog().getLog(0));
     }
 
     @Test
@@ -105,5 +106,31 @@ public class TestUser {
         assertEquals(5,testUserFemaleLose.getTotalFoodLog().getSize());
     }
 
+    @Test
+    public void testFindDailyFoodLogEmpty() {
+        LocalDate localDate = LocalDate.now();
+        String date = localDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+
+        assertEquals(null,testUserFemaleLose.findDailyFoodLog(date));
+    }
+
+    @Test
+    public void testFindDailyFoodLogDoesNotExist() {
+        DailyFoodLog dailyFoodLog = new DailyFoodLog();
+        testUserFemaleLose.addDailyFoodLog(dailyFoodLog);
+
+        assertEquals(null, testUserFemaleLose.findDailyFoodLog("October 26, 1980"));
+    }
+
+    @Test
+    public void testFindDailyFoodLogDoesExist() {
+        DailyFoodLog dailyFoodLog = new DailyFoodLog();
+        testUserFemaleLose.addDailyFoodLog(dailyFoodLog);
+
+        LocalDate localDate = LocalDate.now();
+        String date = localDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+
+        assertEquals(dailyFoodLog,testUserFemaleLose.findDailyFoodLog(date));
+    }
 
 }

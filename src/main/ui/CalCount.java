@@ -6,6 +6,9 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Scanner;
 
 //CalCount Application
@@ -28,6 +31,9 @@ public class CalCount {
         runStartingMenu();
     }
 
+    // EFFECTS: runs initial options for user;
+    //          user can either create a new profile/app
+    //          or load an existing profile/app
     private void runStartingMenu() {
         boolean keepGoing = true;
         String command = null;
@@ -50,9 +56,21 @@ public class CalCount {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads existing user
     private void loadCalCount() {
         try {
             user = jsonReader.read();
+
+            LocalDate localDate = LocalDate.now();
+            String date = localDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+
+            foodLog = user.findDailyFoodLog(date);
+
+            if (foodLog == null) {
+                foodLog = new DailyFoodLog();
+            }
+
             System.out.println("Loaded existing user from " + JSON_STORE);
             runCalCount();
         } catch (IOException e) {
@@ -61,10 +79,15 @@ public class CalCount {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes new user
     private void initCalCount() {
         initUser();
         setUpGoal();
         displayGoal();
+
+        foodLog = new DailyFoodLog();
+
         runCalCount();
     }
 
@@ -73,7 +96,6 @@ public class CalCount {
     //EFFECTS: initializes application;
     //         processes user input
     private void runCalCount() {
-        foodLog = new DailyFoodLog();
 
         boolean keepGoing = true;
         String command = null;
@@ -92,6 +114,8 @@ public class CalCount {
         System.out.println("\nGoodbye!");
     }
 
+    // EFFECTS: offers user the chance to save
+    //          their profile and food logs so far
     private void saveApp() {
         boolean keepGoing = true;
         String command = null;
@@ -110,6 +134,8 @@ public class CalCount {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: saves user info and daily food logs
     private void saveCalCount() {
         try {
             jsonWriter.open();
@@ -121,6 +147,7 @@ public class CalCount {
         }
     }
 
+    // EFFECTS: displays options to save application
     private void saveAppDisplay() {
         System.out.println("\nWould you like to save your existing food logs?");
         System.out.println("Yes -> y");
@@ -156,8 +183,8 @@ public class CalCount {
         while (keepGoing) {
             System.out.println("\nPlease enter your sex (m/f)");
             command = input.next();
-            command = command.toLowerCase();
-            if (command.equals("m") | command.equals("f")) {
+            command = command.toUpperCase();
+            if (command.equals("M") | command.equals("F")) {
                 sex = command;
                 keepGoing = false;
             } else {
@@ -191,7 +218,7 @@ public class CalCount {
     //EFFECTS: processes user weight-related goal
     private String processGoal() {
         displayWeightGoalOptions();
-        String goal = input.next();
+        String goal = input.next().toLowerCase();
 
         boolean keepGoing = true;
         while (keepGoing) {
@@ -223,7 +250,7 @@ public class CalCount {
     //         custom goal or a recommended goal
     private void setUpGoal() {
         displayGoalOptions();
-        String goal = input.next();
+        String goal = input.next().toLowerCase();
 
         boolean keepGoing = true;
         while (keepGoing) {
@@ -277,7 +304,7 @@ public class CalCount {
     //EFFECTS: sets an activity level for the user
     private void setActivityLevel() {
         setActivityLevelDisplay();
-        String activity = input.next();
+        String activity = input.next().toLowerCase();
 
         boolean keepGoing = true;
         while (keepGoing) {
@@ -364,7 +391,7 @@ public class CalCount {
     //EFFECTS: processes user input for the entry's meal
     private String chooseMeal() {
         displayMeal();
-        String meal = input.next();
+        String meal = input.next().toLowerCase();
 
         boolean keepGoing = true;
         while (keepGoing) {
@@ -416,7 +443,7 @@ public class CalCount {
     private boolean addMacros() {
         System.out.println("Did you want to add the number of macros?");
         System.out.println("y or n");
-        String answer = input.next();
+        String answer = input.next().toLowerCase();
 
         boolean addMacros = false;
 
@@ -455,6 +482,7 @@ public class CalCount {
 
     //EFFECTS: processes user input from main display menu
     private void calCountOptions(String command) {
+        command.toLowerCase();
         if (command.equals("a")) {
             addEntry();
         } else if (command.equals("c")) {

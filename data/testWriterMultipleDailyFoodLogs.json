@@ -1,0 +1,74 @@
+{
+    "activity level": "Sedentary",
+    "goal": {
+        "target calories": 1860,
+        "target fat": 30,
+        "target protein": 60,
+        "target carbs": 120
+    },
+    "goal weight": "Lose",
+    "sex": "F",
+    "total food log": [
+        {
+            "date": "October 26, 2020",
+            "entries": [
+                {
+                    "meal": "BREAKFAST",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 340,
+                    "food": "Cereal"
+                },
+                {
+                    "meal": "LUNCH",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 450,
+                    "food": "Salad"
+                },
+                {
+                    "meal": "DINNER",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 760,
+                    "food": "Chicken"
+                }
+            ]
+        },
+        {
+            "date": "October 27, 2020",
+            "entries": [
+                {
+                    "meal": "BREAKFAST",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 120,
+                    "food": "Oatmeal"
+                },
+                {
+                    "meal": "LUNCH",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 450,
+                    "food": "Sandwich"
+                },
+                {
+                    "meal": "DINNER",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 840,
+                    "food": "Noodles"
+                }
+            ]
+        }
+    ],
+    "weight": 120,
+    "age": 35,
+    "height": 189
+}
