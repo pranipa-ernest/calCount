@@ -48,7 +48,7 @@ public class Entry implements Writable {
             this.meal = Meals.LUNCH;
         } else if (meal.equals("DINNER")) {
             this.meal = Meals.DINNER;
-        } else if (meal.equals("SNACK")) {
+        } else {
             this.meal = Meals.SNACK;
         }
     }
