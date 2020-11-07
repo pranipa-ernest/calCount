@@ -8,35 +8,58 @@
     },
     "goal weight": "Lose",
     "sex": "F",
-    "total food log": [{
-        "date": "October 30, 2020",
-        "entries": [
-            {
-                "meal": "BREAKFAST",
-                "carbs": 0,
-                "protein": 0,
-                "fat": 0,
-                "calories": 320,
-                "food": "Oatmeal"
-            },
-            {
-                "meal": "SNACK",
-                "carbs": 0,
-                "protein": 0,
-                "fat": 0,
-                "calories": 430,
-                "food": "Pistachios"
-            },
-            {
-                "meal": "DINNER",
-                "carbs": 0,
-                "protein": 0,
-                "fat": 0,
-                "calories": 550,
-                "food": "Ramen"
-            }
-        ]
-    }],
+    "total food log": [
+        {
+            "date": "October 30, 2020",
+            "entries": [
+                {
+                    "meal": "BREAKFAST",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 320,
+                    "food": "Oatmeal"
+                },
+                {
+                    "meal": "SNACK",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 430,
+                    "food": "Pistachios"
+                },
+                {
+                    "meal": "DINNER",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 550,
+                    "food": "Ramen"
+                }
+            ]
+        },
+        {
+            "date": "November 2, 2020",
+            "entries": [
+                {
+                    "meal": "BREAKFAST",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 120,
+                    "food": "coffee"
+                },
+                {
+                    "meal": "LUNCH",
+                    "carbs": 0,
+                    "protein": 0,
+                    "fat": 0,
+                    "calories": 450,
+                    "food": "salad"
+                }
+            ]
+        }
+    ],
     "weight": 50,
     "age": 21,
     "height": 158

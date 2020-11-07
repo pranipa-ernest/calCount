@@ -37,6 +37,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
+    // EFFECTS: parses user information
     private User parseUser(JSONObject jsonObject) {
         int age = jsonObject.getInt("age");
         String sex = jsonObject.getString("sex").toUpperCase();
@@ -54,6 +55,7 @@ public class JsonReader {
         return user;
     }
 
+    // EFFECTS: parses user goal information
     private void parseGoal(User user, JSONObject jsonObject) {
         JSONObject goalJsonObject = jsonObject.getJSONObject("goal");
         int targetCalories = goalJsonObject.getInt("target calories");
@@ -64,6 +66,7 @@ public class JsonReader {
         user.setCustomGoal(targetCalories,targetProtein,targetFat,targetCarbs);
     }
 
+    // EFFECTS: parses total food log
     private void parseFoodLog(User user, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("total food log");
 
@@ -73,6 +76,7 @@ public class JsonReader {
         }
     }
 
+    // EFFECTS: parses all daily food logs in total food log
     private void addDailyFoodLog(User user, JSONObject foodLogObject) {
         DailyFoodLog dailyFoodLog = new DailyFoodLog();
 
