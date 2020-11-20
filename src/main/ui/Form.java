@@ -10,31 +10,40 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 
 public abstract class Form implements Serializable, ActionListener {
-    protected final RunCalCount runCalCount;
-    protected Container container;
+    protected RunCalCount runCalCount;
+//    protected Container container;
+    protected JPanel panel;
     protected JPanel jp;
     protected String title;
+    protected JButton submit;
+
+    protected final String submitString = "Submit";
+    protected GridBagConstraints gc;
 
     public Form(RunCalCount runCalCount) {
         this.runCalCount = runCalCount;
-        this.container = runCalCount.getContentPane();
+        this.panel = new JPanel();
         this.jp = new JPanel();
     }
 
-    protected void createForm() {
-        setUpContainer();
+    public void createForm() {
+        setUpPanel();
         setUpForm();
     }
 
-    protected void setUpContainer() {
-        container.setLayout(new GridBagLayout());
+    protected void setUpPanel() {
         jp.setBorder(makeFormBorder());
         jp.setLayout(new GridBagLayout());
-        container.add(jp);
+        setUpContentPane();
+    }
+
+    protected void setUpContentPane() {
+        panel.setLayout(new GridBagLayout());
+        panel.add(jp);
     }
 
     protected void setUpForm() {
-        GridBagConstraints gc = new GridBagConstraints();
+        gc = new GridBagConstraints();
         gc.anchor = GridBagConstraints.EAST;
         gc.weightx = 0.5;
         gc.weighty = 0.5;
@@ -51,9 +60,9 @@ public abstract class Form implements Serializable, ActionListener {
         gc.gridy = 7;
         gc.gridwidth = 2;
         gc.fill = GridBagConstraints.HORIZONTAL;
-        JButton submit = new JButton("Submit");
+        submit = new JButton(submitString);
         jp.add(submit, gc);
-        submit.setActionCommand("Submit");
+        submit.setActionCommand(submitString);
         submit.addActionListener(this);
     }
 
@@ -67,15 +76,17 @@ public abstract class Form implements Serializable, ActionListener {
     }
 
     protected Border makeFormBorder() {
-        Border border = new CompoundBorder(
+        return new CompoundBorder(
                 new TitledBorder(null, title, TitledBorder.CENTER,
                         TitledBorder.TOP, null, null),
                 new EmptyBorder(10, 10, 10, 10));
-        return border;
     }
 
     protected abstract void setUpFirstColumn(GridBagConstraints gc, JPanel jp);
 
     protected abstract void setUpSecondColumn(GridBagConstraints gc, JPanel jp);
 
+    public JPanel getPanel() {
+        return panel;
+    }
 }

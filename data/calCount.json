@@ -1,0 +1,38 @@
+{
+    "activity level": "Moderately Active",
+    "goal": {
+        "target calories": 1516,
+        "target fat": 303,
+        "target protein": 454,
+        "target carbs": 758
+    },
+    "goal weight": "Lose",
+    "sex": "F",
+    "total food log": [
+        {
+            "date": "November 20, 2020",
+            "entries": [{
+                "meal": "BREAKFAST",
+                "carbs": 0,
+                "protein": 0,
+                "fat": 0,
+                "calories": 230,
+                "food": "Cereal"
+            }]
+        },
+        {
+            "date": "November 20, 2020",
+            "entries": [{
+                "meal": "BREAKFAST",
+                "carbs": 0,
+                "protein": 0,
+                "fat": 0,
+                "calories": 230,
+                "food": "Cereal"
+            }]
+        }
+    ],
+    "weight": 48,
+    "age": 21,
+    "height": 158
+}

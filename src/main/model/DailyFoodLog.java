@@ -38,6 +38,16 @@ public class DailyFoodLog implements Writable {
         foodLog.add(entry);
     }
 
+
+    /*
+     * REQUIRES: index to be in range
+     * MODIFIES: this
+     * EFFECTS: removes an Entry from the food log with the specified index
+     */
+    public void removeEntry(int index) {
+        foodLog.remove(index);
+    }
+
     /*
      * REQUIRES: trackedStat to be one of "Calories"
      *           "Protein", "Fat", or "Carbs"
@@ -140,6 +150,10 @@ public class DailyFoodLog implements Writable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public List<Entry> getFoodLog() {
+        return foodLog;
     }
 
 }

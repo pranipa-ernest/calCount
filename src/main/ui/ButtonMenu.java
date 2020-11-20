@@ -1,5 +1,7 @@
 package ui;
 
+import ui.RunCalCount;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,11 +9,13 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 
 public abstract class ButtonMenu implements Serializable {
-    protected final RunCalCount runCalCount;
+    protected RunCalCount runCalCount;
     protected JLabel label;
 
     protected Dimension btnDimension;
-    protected Container container;
+//    protected Container container;
+
+    protected JPanel panel;
     protected JPanel jp;
 
     protected JButton firstBtn;
@@ -24,7 +28,8 @@ public abstract class ButtonMenu implements Serializable {
     public ButtonMenu(RunCalCount runCalCount) {
         this.runCalCount = runCalCount;
         btnDimension = new Dimension(200, 100);
-        this.container = runCalCount.getContentPane();
+        panel = new JPanel();
+//        this.container = runCalCount.getContentPane();
     }
 
     protected abstract void createBtns();
@@ -35,7 +40,7 @@ public abstract class ButtonMenu implements Serializable {
         createBtns();
         setActionBtns();
 
-        container.setLayout(new GridBagLayout());
+        panel.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
 
@@ -49,19 +54,23 @@ public abstract class ButtonMenu implements Serializable {
 
         gc.gridy = 1;
         gc.ipady = 0;
-        container.add(jp, gc);
+        panel.add(jp, gc);
         addButtonsToJPanel(jp);
     }
 
     protected void setUpLabel(GridBagConstraints gc) {
         gc.gridy = 0;
         gc.ipady = 30;
-        container.add(label, gc);
+        panel.add(label, gc);
     }
 
     private void addButtonsToJPanel(JPanel jp) {
         jp.add(firstBtn, new GridBagConstraints());
         jp.add(secondBtn, new GridBagConstraints());
+    }
+
+    public JPanel getPanel() {
+        return panel;
     }
 
     protected abstract void setActionBtn(JButton button, String actionCommand);

@@ -47,9 +47,9 @@ public class CustomGoalForm extends Form {
             int fat = Integer.parseInt(textFields[2].getText());
             int carbs = Integer.parseInt(textFields[3].getText());
             user.setCustomGoal(calories,protein,fat,carbs);
-            container.removeAll();
-            container.repaint();
-            runCalCount.showMainPage();
+//            container.removeAll();
+//            container.repaint();
+            runCalCount.loadNewMainPage();
         }
     }
 }

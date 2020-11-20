@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestDailyFoodLog {
 
@@ -193,8 +192,8 @@ public class TestDailyFoodLog {
 
         testFoodLog.addEntry(testEntryBreakfast);
 
-        String expectedResult = date + "\n" + testEntryBreakfast.printEntry()
-                + "\n" + "Total Calories: " + testFoodLog.totalIntake("Calories");
+        String expectedResult = date + "\n\n" + testEntryBreakfast.printEntry()
+                + "\n\n" + "Total Calories: " + testFoodLog.totalIntake("Calories");
 
         assertEquals(expectedResult,testFoodLog.printFullReport());
     }
@@ -211,13 +210,24 @@ public class TestDailyFoodLog {
 
         String expectedResult = date;
         for (int i = 0; i < 10; i++) {
-            expectedResult += "\n" + testEntryBreakfast.printEntry()
-                    + "\n" + testEntrySnack.printEntry();
+            expectedResult += "\n\n" + testEntryBreakfast.printEntry()
+                    + "\n\n" + testEntrySnack.printEntry();
         }
-        expectedResult += "\n" + "Total Calories: "
+        expectedResult += "\n\n" + "Total Calories: "
                 + testFoodLog.totalIntake("Calories");
 
         assertEquals(expectedResult,testFoodLog.printFullReport());
+    }
+
+    @Test
+    public void testRemoveEntry() {
+        testFoodLog.addEntry(testEntryBreakfast);
+        testFoodLog.addEntry(testEntryLunch);
+        testFoodLog.addEntry((testEntryDinner));
+
+        testFoodLog.removeEntry(0);
+        assertEquals(2, testFoodLog.getSize());
+        assertFalse(testFoodLog.getFoodLog().contains(testEntryBreakfast));
     }
 
 }

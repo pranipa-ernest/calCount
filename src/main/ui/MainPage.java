@@ -1,5 +1,7 @@
 package ui;
 
+import model.DailyFoodLog;
+import model.Entry;
 import model.User;
 
 import javax.swing.*;
@@ -7,79 +9,112 @@ import java.awt.*;
 
 public class MainPage extends JFrame {
 
-    private final String[] caloriePanelNames = {"Goal: ", "Calories Remaining: ", "Calories Eaten: "};
-    private final String[] macroPanelNames = {"Protein: ", "Fat: ", "Carbs: "};
-
     private RunCalCount runCalCount;
+    private Container container;
+    private JPanel mainPanel;
+
+    private JPanel sidebar;
+//    protected Container container;
+
     private User user;
-    protected Container container;
+    private DailyFoodLog foodLog;
+    private String date;
+
+
+    private EntryForm entryForm;
+    private CaloriePanel caloriePanel;
+    private DailyFoodLogUI dailyFoodLogUI;
+    private MainMenuButtons mainMenuButtons;
 
     public MainPage(RunCalCount runCalCount) {
         this.runCalCount = runCalCount;
-        this.user = runCalCount.getUser();
         this.container = runCalCount.getContentPane();
+
+        this.user = runCalCount.getUser();
+        this.foodLog = runCalCount.getFoodLog();
+
+        this.mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+
+        caloriePanel = new CaloriePanel(user, foodLog);
+        dailyFoodLogUI = new DailyFoodLogUI(foodLog);
+        mainMenuButtons = new MainMenuButtons(this);
+        entryForm = new EntryForm(runCalCount,this);
     }
 
-    public void showMainPage() {
-        container.setLayout(new GridBagLayout());
-        GridBagConstraints gc = new GridBagConstraints();
+    public void setUpMainPage() {
+        addTargetPanel();
+        addDailyFoodLog();
+        setUpSideBar();
 
-        addTargetPanel(gc);
+        container.add(getMainPanel());
+        container.revalidate();
+        container.repaint();
     }
 
-    protected void addTargetPanel(GridBagConstraints gc) {
-
-        JPanel targetPanel = setUpTopPanel();
-
-        gc.fill = GridBagConstraints.HORIZONTAL;
-        gc.anchor = GridBagConstraints.PAGE_START;
-        gc.weightx = 1;
-        gc.weighty = 1;
-        gc.gridwidth = 3;
-        gc.gridx = 0;
-        gc.gridy = 0;
-
-        container.add(targetPanel, gc);
+    protected void addTargetPanel() {
+        caloriePanel.setUpTargetPanel();
+        JPanel caloriePanel = this.caloriePanel.getPanel();
+        mainPanel.add(caloriePanel,BorderLayout.PAGE_START);
     }
 
-    private JPanel setUpTopPanel() {
-        JPanel targetsPanel = new JPanel();
-        targetsPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gc = new GridBagConstraints();
 
-        JPanel caloriePanel = setUpTargetPanel(caloriePanelNames,"Calories");
-
-        gc.fill = GridBagConstraints.HORIZONTAL;
-        gc.weightx = 1;
-        gc.weighty = 1;
-        gc.gridwidth = 3;
-        gc.gridx = 0;
-        gc.gridy = 0;
-        targetsPanel.add(caloriePanel, gc);
-
-//        JPanel macroPanel = setUpTargetPanel(macroPanelNames, "Macros");
-//        gc.fill = GridBagConstraints.HORIZONTAL;
-//        gc.weightx = 1;
-//        gc.weighty = 1;
-//        gc.gridwidth = 3;
-//        gc.gridx = 0;
-//        gc.gridy = 1;
-//        targetsPanel.add(macroPanel, gc);
-
-        return targetsPanel;
+    private void addDailyFoodLog() {
+        dailyFoodLogUI.setUpFoodLogUI();
+        JPanel dailyFoodLogPanel = dailyFoodLogUI.getDailyFoodLogPanel();
+        mainPanel.add(dailyFoodLogPanel,BorderLayout.CENTER);
     }
 
-    private JPanel setUpTargetPanel(String[] labels, String target) {
-        TargetPanel panel;
-        if (target.equals("Calories")) {
-            panel = new CaloriePanel(runCalCount,labels);
-        } else {
-            panel = new MacrosPanel(runCalCount,labels);
-        }
-        panel.setUpTargetPanel();
-        JPanel jp = panel.getPanel();
-        return jp;
+    private void setUpSideBar() {
+        sidebar = new JPanel();
+        sidebar.setLayout(new BoxLayout(sidebar,BoxLayout.PAGE_AXIS));
+        sidebar.add(addEntryForm());
+        sidebar.add(addButtons());
+        mainPanel.add(sidebar,BorderLayout.LINE_START);
     }
+
+    private JPanel addButtons() {
+        mainMenuButtons.setUpButtons();
+        return mainMenuButtons.getButtonPanel();
+    }
+
+    private JPanel addEntryForm() {
+        entryForm.createForm();
+        return entryForm.getPanel();
+    }
+
+    public void addEntry(String meal, String food, int calories) {
+        Entry entry = new Entry(meal, food, calories);
+        foodLog.addEntry(entry);
+        dailyFoodLogUI.addEntry(entry);
+    }
+
+    public void removeEntry() {
+        int index = dailyFoodLogUI.removeEntry();
+        foodLog.removeEntry(index);
+    }
+
+    public void updateCaloriePanel() {
+        caloriePanel.updateAll();
+    }
+
+
+    public DailyFoodLogUI getDailyFoodLogUI() {
+        return dailyFoodLogUI;
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public DailyFoodLog getFoodLog() {
+        return foodLog;
+    }
+
 }
 
 

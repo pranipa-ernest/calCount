@@ -1,7 +1,4 @@
-package ui;
-
-import model.DailyFoodLog;
-import model.Entry;
+package ui.depreciated;
 
 import java.io.FileNotFoundException;
 

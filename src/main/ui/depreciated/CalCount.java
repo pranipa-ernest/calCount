@@ -1,4 +1,4 @@
-package ui;
+package ui.depreciated;
 
 import model.*;
 import persistence.JsonReader;

@@ -1,7 +1,6 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,12 +12,6 @@ public class GoalChoices extends ButtonMenu implements ActionListener {
         secondBtnName = "Recommended Goal";
         label = new JLabel("Would you like to create a custom goal or follow a recommended one?");
     }
-
-    @Override
-    public void initMenu() {
-        super.initMenu();
-    }
-
 
     @Override
     protected void createBtns() {
@@ -40,8 +33,8 @@ public class GoalChoices extends ButtonMenu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        container.removeAll();
-        container.repaint();
+//        container.removeAll();
+//        container.repaint();
         if (e.getActionCommand().equals(firstBtnName)) {
             runCalCount.createCustomGoal();
         } else if (e.getActionCommand().equals(secondBtnName)) {

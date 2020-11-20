@@ -1,16 +1,8 @@
 package ui;
 
-import model.Goal;
-
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -152,10 +144,9 @@ public class NewUserForm extends Form {
             String userActivityLevel = (String)activityLevel.getSelectedItem();
             String userGoal = (String)goal.getSelectedItem();
             runCalCount.setUser(userAge,userSex,userWeight,userHeight,userGoal,userActivityLevel);
-
-            container.removeAll();
-            container.repaint();
-            runCalCount.setUpNewGoal();
+//            container.removeAll();
+//            container.repaint();
+//            runCalCount.setUpNewGoal();
         }
     }
 }

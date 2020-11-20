@@ -1,42 +1,43 @@
 {
   "activity level": "Sedentary",
   "goal": {
-    "target calories": 1600,
+    "target calories": 1860,
     "target fat": 30,
-    "target protein": 40,
-    "target carbs": 50
+    "target protein": 60,
+    "target carbs": 120
   },
   "goal weight": "Lose",
   "sex": "F",
-  "total food log": [{
-    "date": "October 26, 2020",
-    "entries": [
-      {
-        "meal": "BREAKFAST",
-        "carbs": 0,
-        "protein": 0,
-        "fat": 0,
-        "calories": 0,
-        "food": "coffee"
-      },
-      {
-        "meal": "SNACK",
-        "carbs": 20,
-        "protein": 30,
-        "fat": 50,
-        "calories": 250,
-        "food": "granola"
-      },
-      {
-        "meal": "DINNER",
-        "carbs": 500,
-        "protein": 203,
-        "fat": 70,
-        "calories": 760,
-        "food": "pasta"
-      }
-    ]
-  },
+  "total food log": [
+    {
+      "date": "October 26, 2020",
+      "entries": [
+        {
+          "meal": "BREAKFAST",
+          "carbs": 0,
+          "protein": 0,
+          "fat": 0,
+          "calories": 0,
+          "food": "coffee"
+        },
+        {
+          "meal": "SNACK",
+          "carbs": 20,
+          "protein": 30,
+          "fat": 50,
+          "calories": 250,
+          "food": "granola"
+        },
+        {
+          "meal": "DINNER",
+          "carbs": 500,
+          "protein": 203,
+          "fat": 70,
+          "calories": 760,
+          "food": "pasta"
+        }
+      ]
+    },
     {
       "date": "October 27, 2020",
       "entries": [
@@ -65,8 +66,9 @@
           "food": "Soup"
         }
       ]
-    }],
-  "weight": 50,
-  "age": 21,
-  "height": 158
+    }
+  ],
+  "weight": 120,
+  "age": 35,
+  "height": 189
 }

@@ -1,10 +1,8 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 public class StartMenu extends ButtonMenu implements ActionListener {
 
@@ -34,9 +32,10 @@ public class StartMenu extends ButtonMenu implements ActionListener {
     }
 
 
+    @Override
     public void actionPerformed(ActionEvent e) {
-        container.removeAll();
-        container.repaint();
+//        container.removeAll();
+//        container.repaint();
         if (e.getActionCommand().equals(firstBtnName)) {
             runCalCount.createNewUser();
         } else if (e.getActionCommand().equals(secondBtnName)) {
