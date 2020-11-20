@@ -1,38 +1,51 @@
 {
-    "activity level": "Moderately Active",
+    "activity level": "Sedentary",
     "goal": {
-        "target calories": 1516,
-        "target fat": 303,
-        "target protein": 454,
-        "target carbs": 758
+        "target calories": 1800,
+        "target fat": 60,
+        "target protein": 40,
+        "target carbs": 70
     },
     "goal weight": "Lose",
     "sex": "F",
-    "total food log": [
-        {
-            "date": "November 20, 2020",
-            "entries": [{
+    "total food log": [{
+        "date": "November 20, 2020",
+        "entries": [
+            {
                 "meal": "BREAKFAST",
+                "carbs": 80,
+                "protein": 50,
+                "fat": 60,
+                "calories": 450,
+                "food": "Cereal"
+            },
+            {
+                "meal": "SNACK",
                 "carbs": 0,
                 "protein": 0,
                 "fat": 0,
-                "calories": 230,
-                "food": "Cereal"
-            }]
-        },
-        {
-            "date": "November 20, 2020",
-            "entries": [{
-                "meal": "BREAKFAST",
+                "calories": 120,
+                "food": "Yogurt"
+            },
+            {
+                "meal": "LUNCH",
                 "carbs": 0,
-                "protein": 0,
+                "protein": 25,
                 "fat": 0,
-                "calories": 230,
-                "food": "Cereal"
-            }]
-        }
-    ],
-    "weight": 48,
+                "calories": 500,
+                "food": "Salad"
+            },
+            {
+                "meal": "DINNER",
+                "carbs": 20,
+                "protein": 80,
+                "fat": 120,
+                "calories": 1200,
+                "food": "Hamburger"
+            }
+        ]
+    }],
+    "weight": 123,
     "age": 21,
-    "height": 158
+    "height": 123
 }

@@ -11,6 +11,7 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /*
 Represents a collection of Entries for a particular day.
@@ -134,6 +135,33 @@ public class DailyFoodLog implements Writable {
         }
         return jsonArray;
     }
+
+//
+//    /*
+//     * EFFECTS: dailyFoodLogs are equal if they have the same date;
+//     *          changes equality
+//     */
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o == null || getClass() != o.getClass()) {
+//            return false;
+//        }
+//        DailyFoodLog that = (DailyFoodLog) o;
+//        return date.equals(that.date);
+//    }
+//
+//    /*
+//     * EFFECTS: dailyFoodLogs are equal if they have the same date;
+//     *          changes hashcode
+//     */
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(date);
+//    }
+
 
     //Getters and setters
     public int getSize() {

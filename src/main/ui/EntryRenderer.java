@@ -15,19 +15,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+/*
+Represents styled cell of each Entry in the DailyFoodLogUI
+ */
 public class EntryRenderer extends JTextPane implements ListCellRenderer<Entry> {
 
-
+    /*
+     * EFFECTS: adds styling to each cell of DailyFoodLogUI (i.e. meal
+     *          is in bold, line space between each value, etc.). If cell
+     *          is selected, colours background of cell
+     */
     @Override
     public Component getListCellRendererComponent(JList<? extends Entry> list,
                                                   Entry value, int index, boolean isSelected,
                                                   boolean cellHasFocus) {
 
-
         styleMeal(value);
-        SimpleAttributeSet attributeSet;
-
-        attributeSet = new SimpleAttributeSet();
+        SimpleAttributeSet attributeSet = new SimpleAttributeSet();
         setCharacterAttributes(attributeSet, true);
         String food = value.getFood();
         String calories = String.valueOf(value.getCalories());
@@ -51,6 +55,10 @@ public class EntryRenderer extends JTextPane implements ListCellRenderer<Entry> 
         return this;
     }
 
+    /*
+     * EFFECTS: adds styling to meal value of each Entry.
+     *          Makes font of meal value bold.
+     */
     protected void styleMeal(Entry value) {
         SimpleAttributeSet attributeSet = new SimpleAttributeSet();
         StyleConstants.setBold(attributeSet, true);

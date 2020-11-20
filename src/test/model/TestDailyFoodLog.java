@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
@@ -229,5 +230,33 @@ public class TestDailyFoodLog {
         assertEquals(2, testFoodLog.getSize());
         assertFalse(testFoodLog.getFoodLog().contains(testEntryBreakfast));
     }
+
+    @Test
+    public void testRemoveEntryDoesNotExist() {
+        testFoodLog.addEntry(testEntryBreakfast);
+        testFoodLog.addEntry(testEntryLunch);
+        testFoodLog.addEntry((testEntryDinner));
+
+        try {
+            testFoodLog.removeEntry(4);
+            fail();
+        } catch (IndexOutOfBoundsException e) {
+            //pass
+        }
+    }
+
+
+//    @Test
+//    public void
+//    @Test
+//    public void testEqualityNotEqual() {
+//        testFoodLog.addEntry(testEntryBreakfast);
+//        testFoodLog.addEntry(testEntryLunch);
+//        testFoodLog.addEntry((testEntryDinner));
+//
+//        DailyFoodLog newLog = new DailyFoodLog();
+//        String date = "November 15, 2020";
+//
+//    }
 
 }

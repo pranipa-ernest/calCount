@@ -6,28 +6,37 @@ import model.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MainPage extends JFrame {
+/*
+Represents main page of CalCount application. This is where an initialized user can
+add entries to their food log, check how many calories they have left to eat, how
+many calories they have already eaten, and how many macros they have eaten.
+ */
+public class MainPage extends JFrame implements ActionListener {
 
-    private RunCalCount runCalCount;
-    private Container container;
-    private JPanel mainPanel;
+    private Container container; //container of RunCalCount
+    private JPanel mainPanel;    //main panel
 
-    private JPanel sidebar;
-//    protected Container container;
+    private JPanel sidebar;      //panel for sidebar
 
-    private User user;
-    private DailyFoodLog foodLog;
-    private String date;
+    private User user;            //initialized user
+    private DailyFoodLog foodLog; //user's current food log
 
+    private EntryForm entryForm;           //form to allow users to add entries
+    private CaloriePanel caloriePanel;     //top panel that shows users target calories
+                                           //eaten calories, and remaining calories
+    private DailyFoodLogUI dailyFoodLogUI; //GUI of food log
+    private JButton checkMacros;           //button that allows users to check macros
+    private final String checkMacrosString = "Check Macros"; //label for checkMacros button
 
-    private EntryForm entryForm;
-    private CaloriePanel caloriePanel;
-    private DailyFoodLogUI dailyFoodLogUI;
-    private MainMenuButtons mainMenuButtons;
-
+    /*
+     * EFFECTS: constructs main page of CalCount app with given user,
+     *          and user's food log. Sets up layout of mainPanel and
+     *          initializes all main components
+     */
     public MainPage(RunCalCount runCalCount) {
-        this.runCalCount = runCalCount;
         this.container = runCalCount.getContentPane();
 
         this.user = runCalCount.getUser();
@@ -38,10 +47,15 @@ public class MainPage extends JFrame {
 
         caloriePanel = new CaloriePanel(user, foodLog);
         dailyFoodLogUI = new DailyFoodLogUI(foodLog);
-        mainMenuButtons = new MainMenuButtons(this);
+        checkMacros = new JButton(checkMacrosString);
         entryForm = new EntryForm(runCalCount,this);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up main page. Adds and positions all main components.
+     *          Adds main panel to frame
+     */
     public void setUpMainPage() {
         addTargetPanel();
         addDailyFoodLog();
@@ -52,6 +66,10 @@ public class MainPage extends JFrame {
         container.repaint();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up target panel. Positions and adds to main panel.
+     */
     protected void addTargetPanel() {
         caloriePanel.setUpTargetPanel();
         JPanel caloriePanel = this.caloriePanel.getPanel();
@@ -59,46 +77,95 @@ public class MainPage extends JFrame {
     }
 
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up daily food log ui. Positions and adds to main panel.
+     */
     private void addDailyFoodLog() {
         dailyFoodLogUI.setUpFoodLogUI();
         JPanel dailyFoodLogPanel = dailyFoodLogUI.getDailyFoodLogPanel();
         mainPanel.add(dailyFoodLogPanel,BorderLayout.CENTER);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up sidebar's entry form and check macro button.
+     *          Positions sidebar and adds to main panel.
+     */
     private void setUpSideBar() {
         sidebar = new JPanel();
         sidebar.setLayout(new BoxLayout(sidebar,BoxLayout.PAGE_AXIS));
         sidebar.add(addEntryForm());
-        sidebar.add(addButtons());
+        sidebar.add(checkMacroButton());
         mainPanel.add(sidebar,BorderLayout.LINE_START);
     }
 
-    private JPanel addButtons() {
-        mainMenuButtons.setUpButtons();
-        return mainMenuButtons.getButtonPanel();
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates checkMacro button, sets actionCommand
+     *          and actionListener for button.
+     */
+    private JButton checkMacroButton() {
+        checkMacros.setAlignmentX(Component.CENTER_ALIGNMENT);
+        checkMacros.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        checkMacros.setActionCommand(checkMacrosString);
+        checkMacros.addActionListener(this);
+        return checkMacros;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates EntryForm and returns panel.
+     */
     private JPanel addEntryForm() {
         entryForm.createForm();
         return entryForm.getPanel();
     }
 
-    public void addEntry(String meal, String food, int calories) {
-        Entry entry = new Entry(meal, food, calories);
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds an Entry to foodLog and dailyFoodLogUI.
+     */
+    public void addEntry(Entry entry) {
         foodLog.addEntry(entry);
         dailyFoodLogUI.addEntry(entry);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: removes selected Entry from foodLog and dailyFoodLogUI.
+     */
     public void removeEntry() {
         int index = dailyFoodLogUI.removeEntry();
         foodLog.removeEntry(index);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates caloriePanel values upon either adding
+     *          or removing an Entry from the food log.
+     */
     public void updateCaloriePanel() {
         caloriePanel.updateAll();
     }
 
+    /*
+     * EFFECTS: upon click checkMacros button, shows a dialog with the total
+     *          amount of macros that the user has entered in their food log
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals(checkMacrosString)) {
+            JFrame frame = new JFrame("Macros");
+            JOptionPane.showMessageDialog(frame,
+                    "Protein: " + foodLog.totalIntake("Protein")
+                            + "\n" + "Fat: " + foodLog.totalIntake("Fat")
+                            + "\n" + "Carbs: " + foodLog.totalIntake("Carbs"));
+        }
+    }
 
+    //GETTERS AND SETTERS
     public DailyFoodLogUI getDailyFoodLogUI() {
         return dailyFoodLogUI;
     }

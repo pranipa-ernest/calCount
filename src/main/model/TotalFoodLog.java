@@ -59,4 +59,7 @@ public class TotalFoodLog implements WritableArray {
         return totalFoodLog.get(x);
     }
 
+    public List<DailyFoodLog> getTotalFoodLog() {
+        return totalFoodLog;
+    }
 }
