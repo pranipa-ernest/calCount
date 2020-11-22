@@ -42,3 +42,10 @@ for the current day (food name, assoc calories, macros).
 and my daily food log for the current day to a file. 
 - As a user, when I start the application, I want to be able to load my daily
 food log for the current day
+
+## Phase 4:
+### Task 2
+Two different type hierarchies are present in the `ui` package of my code. The first 
+one has the abstract class `Form` at the top of the hierarchy. `EntryForm`, `CustomGoalForm`,
+and `NewUserForm` all extend from `Form`. The second type hierarchy has `ButtonMenu` as the 
+superclass, with `GoalChoices` and `StartMenu` being its subclasses. 
