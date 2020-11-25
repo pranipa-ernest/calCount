@@ -49,3 +49,18 @@ Two different type hierarchies are present in the `ui` package of my code. The f
 one has the abstract class `Form` at the top of the hierarchy. `EntryForm`, `CustomGoalForm`,
 and `NewUserForm` all extend from `Form`. The second type hierarchy has `ButtonMenu` as the 
 superclass, with `GoalChoices` and `StartMenu` being its subclasses. 
+
+### Task 3
+- Decrease the amount of coupling 
+    - There is a high degree of coupling amongst several of my classes. `DailyFoodLog`, for example, 
+    is associated with 5 different classes. The `User` class is associated with 5 classes as well. 
+    Changing `DailyFoodLog` or `User` may affect associated classes, which in turn may create a ripple
+     effect of changes in other classes. 
+- Increase cohesion by splitting RunCalCount up into separate classes
+    - `RunCalCount` is responsible for showing the user the start menu, setting up a new profile, 
+    displaying the `MainPage` and saving the app at the end. If I had time, I would try to maybe split 
+    `RunCalCount` up into different classes (i.e. `StartApp`, `SaveApp`, `CreateNewProfile`, etc.)
+- Clean up methods 
+    - Some of my methods are long and should be extracted (i.e. `setUpLabels()` and `remainingCalories()`
+    in `CaloriePanel`). Other methods are very similar (i.e. `setActionBtns()` in both `StartMenu` and 
+    `GoalChoices`) and should be refactored to avoid duplication. 
